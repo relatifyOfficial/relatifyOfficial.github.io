@@ -33,10 +33,10 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    .support-section {
+    .support-section, .ai-section {
       margin: 40px 0;
     }
-    .paypal-btn {
+    .paypal-btn, .ai-btn {
       padding: 12px 24px;
       background: #0070ba;
       color: white;
@@ -45,8 +45,9 @@
       font-size: 16px;
       cursor: pointer;
       transition: 0.3s ease;
+      margin: 10px 0;
     }
-    .paypal-btn:hover {
+    .paypal-btn:hover, .ai-btn:hover {
       background: #005c99;
     }
   </style>
@@ -58,6 +59,14 @@
   <div class="form-container">
     <!-- Google Form Embed -->
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdDG3CrgUMeSiVQfiI8mtlhJ-wMPu0YdNdSmSlBLjCcjrcA7Q/viewform?embedded=true" allowfullscreen></iframe>
+  </div>
+
+  <!-- AI Companion Section -->
+  <div class="ai-section">
+    <h2>Talk to Zoya/Anish 🤖</h2>
+    <a href="https://zoya-anish-voice.streamlit.app/" target="_blank">
+      <button class="ai-btn">Speak to Zoya/Anish</button>
+    </a>
   </div>
 
   <!-- PayPal Support Section -->
