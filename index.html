@@ -33,6 +33,22 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+    .support-section {
+      margin: 40px 0;
+    }
+    .paypal-btn {
+      padding: 12px 24px;
+      background: #0070ba;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .paypal-btn:hover {
+      background: #005c99;
+    }
   </style>
 </head>
 <body>
@@ -40,8 +56,17 @@
   <p>Because life’s little struggles deserve a little fix.✨</p>
 
   <div class="form-container">
-    <!-- Paste your Google Form embed code here -->
+    <!-- Google Form Embed -->
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdDG3CrgUMeSiVQfiI8mtlhJ-wMPu0YdNdSmSlBLjCcjrcA7Q/viewform?embedded=true" allowfullscreen></iframe>
+  </div>
+
+  <!-- PayPal Support Section -->
+  <div class="support-section">
+    <h2>Support Relatify 💖</h2>
+    <p>If you’d like to support us, you can chip in just $1:</p>
+    <a href="https://paypal.me/curiouscurrent/1" target="_blank">
+      <button class="paypal-btn">Support with $1 💳</button>
+    </a>
   </div>
 </body>
 </html>
