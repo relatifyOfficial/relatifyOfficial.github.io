@@ -20,62 +20,58 @@
       font-size: 18px;
       margin-bottom: 30px;
     }
-    .form-container {
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
-    iframe {
-      border: none;
-      width: 100%;
-      max-width: 600px;
-      height: 800px; /* adjust height if needed */
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .support-section, .ai-section {
+    .payment-section {
       margin: 40px 0;
     }
-    .paypal-btn, .ai-btn {
+    .pay-btn {
       padding: 12px 24px;
-      background: #0070ba;
       color: white;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
       transition: 0.3s ease;
-      margin: 10px 0;
+      margin: 10px;
+      display: inline-block;
+      text-decoration: none;
     }
-    .paypal-btn:hover, .ai-btn:hover {
+    .paypal-btn {
+      background: #0070ba;
+    }
+    .paypal-btn:hover {
       background: #005c99;
+    }
+    .paytm-btn {
+      background: #00baf2;
+    }
+    .paytm-btn:hover {
+      background: #008ec0;
+    }
+    .download-btn {
+      background: #28a745;
+    }
+    .download-btn:hover {
+      background: #1f7a33;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Relatify</h1>
-  <p>Because life’s little struggles deserve a little fix.✨</p>
+  <h1>Money Making Guide 💰</h1>
+  <p>Select a payment method to proceed:</p>
 
-  <div class="form-container">
-    <!-- Google Form Embed -->
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdDG3CrgUMeSiVQfiI8mtlhJ-wMPu0YdNdSmSlBLjCcjrcA7Q/viewform?embedded=true" allowfullscreen></iframe>
-  </div>
+  <div class="payment-section">
+    <!-- PayPal Button -->
+    <a href="https://paypal.me/curiouscurrent/1" target="_blank" class="pay-btn paypal-btn">
+      Pay with PayPal ($1)
+    </a>
 
-  <!-- AI Companion Section -->
-  <div class="ai-section">
-    <h2>Talk to Zoya/Anish 🤖</h2>
-    <a href="https://zoya-anish-voice.streamlit.app/" target="_blank">
-      <button class="ai-btn">Speak to Zoya/Anish</button>
+    <!-- Paytm Button -->
+    <a href="upi://pay?pa=8884379581@ptyes&pn=Relatify&am=87&cu=INR" class="pay-btn paytm-btn">
+      Pay with Paytm (₹87)
     </a>
   </div>
 
-  <!-- PayPal Support Section -->
-  <div class="support-section">
-    <h2>Support Relatify 💖</h2>
-    <p>If you’d like to support us, you can chip in just $1:</p>
-    <a href="https://paypal.me/curiouscurrent/1" target="_blank">
-      <button class="paypal-btn">Support with $1 💳</button>
-    </a>
-  </div>
+  <p>Once you’ve completed your payment, click below to access your guide:</p>
+  <a href="download.html" class="pay-btn download-btn">Continue to Download 📥</a>
 </body>
 </html>
