@@ -1,77 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Relatify</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatify Payment</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap" rel="stylesheet">
+<style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
+        font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif;
+        background: #121212;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        text-align: center;
+        overflow-x: hidden;
+        position: relative;
     }
-    h1 {
-      margin-top: 40px;
-      color: #333;
+
+    /* Kid-friendly doodles */
+    body::before, body::after {
+        content: '';
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle, #FFD600 40%, transparent 41%);
+        border-radius: 50%;
+        top: 50px;
+        left: 20px;
+        opacity: 0.6;
+        transform: rotate(20deg);
+        z-index: 0;
     }
-    p {
-      color: #555;
-      font-size: 18px;
-      margin-bottom: 30px;
+
+    body::after {
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, #FF4081 40%, transparent 41%);
+        top: 200px;
+        right: 30px;
+        transform: rotate(-15deg);
     }
-    .payment-section {
-      margin: 40px 0;
+
+    .doodle-star {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #00BFA5;
+        clip-path: polygon(
+            50% 0%, 61% 35%, 98% 35%, 
+            68% 57%, 79% 91%, 50% 70%, 
+            21% 91%, 32% 57%, 2% 35%, 
+            39% 35%
+        );
+        animation: float 4s ease-in-out infinite alternate;
     }
-    .pay-btn {
-      padding: 12px 24px;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s ease;
-      margin: 10px;
-      display: inline-block;
-      text-decoration: none;
+
+    @keyframes float {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-20px); }
     }
-    .paypal-btn {
-      background: #0070ba;
+
+    header {
+        background-color: #1A237E;
+        padding: 25px;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #fff;
+        position: relative;
+        z-index: 1;
     }
-    .paypal-btn:hover {
-      background: #005c99;
+
+    main {
+        padding: 40px 20px;
+        position: relative;
+        z-index: 1;
     }
-    .paytm-btn {
-      background: #00baf2;
+
+    h2 {
+        color: #FFD600;
+        font-size: 2rem;
+        margin-bottom: 10px;
     }
-    .paytm-btn:hover {
-      background: #008ec0;
+
+    h3 {
+        color: #00BFA5;
+        font-size: 1.5rem;
+        margin-bottom: 30px;
     }
-    .download-btn {
-      background: #28a745;
+
+    .payment-card {
+        background-color: #1E1E2F;
+        border-radius: 20px;
+        padding: 30px 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);
+        position: relative;
+        z-index: 1;
     }
-    .download-btn:hover {
-      background: #1f7a33;
+
+    .payment-card img {
+        width: 250px;
+        border-radius: 15px;
+        margin-bottom: 20px;
     }
-  </style>
+
+    button {
+        background-color: #00BFA5;
+        color: #fff;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: transform 0.3s, background-color 0.3s;
+        margin: 10px;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        background-color: #26A69A;
+    }
+
+    #downloadBtn {
+        display: none;
+    }
+
+    footer {
+        margin-top: 40px;
+        padding: 15px;
+        background-color: #1A237E;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+    }
+</style>
 </head>
 <body>
-  <h1>Money Making Guide 💰</h1>
-  <p>Select a payment method to proceed:</p>
 
-  <div class="payment-section">
-    <!-- PayPal Button -->
-    <a href="https://paypal.me/curiouscurrent/1" target="_blank" class="pay-btn paypal-btn">
-      Pay with PayPal ($1)
-    </a>
+<header>
+    Welcome to Relatify
+</header>
 
-    <!-- Paytm Button -->
-    <a href="upi://pay?pa=8884379581@ptyes&pn=Relatify&am=87&cu=INR" class="pay-btn paytm-btn">
-      Pay with Paytm (₹87)
-    </a>
-  </div>
+<main>
+    <h2>Because life's little struggles deserve a little fix ✨</h2>
 
-  <p>Once you’ve completed your payment, click below to access your guide:</p>
-  <a href="download.html" class="pay-btn download-btn">Continue to Download 📥</a>
+    <div class="payment-card">
+        <h3>Complete Your Payment via UPI</h3>
+        <img src="upi-qr.png" alt="UPI QR Code"> <!-- Replace with your QR image -->
+
+        <p>Scan the QR code using your UPI app to make the payment.</p>
+
+        <button id="confirmBtn">I Have Paid</button>
+        <br>
+        <a href="your-download-link.pdf" target="_blank" id="downloadBtn">
+            <button>Download Now</button>
+        </a>
+    </div>
+</main>
+
+<footer>
+    &copy; 2025 Relatify
+</footer>
+
+<!-- Extra floating stars -->
+<div class="doodle-star" style="top:100px; left:50px;"></div>
+<div class="doodle-star" style="top:250px; left:150px; background:#FFEB3B;"></div>
+<div class="doodle-star" style="top:350px; left:300px; background:#FF4081;"></div>
+<div class="doodle-star" style="top:150px; right:100px; background:#00E5FF;"></div>
+
+<script>
+    const confirmBtn = document.getElementById('confirmBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    confirmBtn.addEventListener('click', () => {
+        alert("Payment confirmed! Your download button is now active.");
+        downloadBtn.style.display = "inline-block";
+    });
+</script>
+
 </body>
 </html>
