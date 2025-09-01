@@ -149,7 +149,7 @@ function submitForm(e){
     document.getElementById('leadText').innerText = "Thank you!";
     document.getElementById('getProductBtn').style.display = 'inline-block';
 
-    // Submit silently to your new Google Form using the correct entry IDs
+    // Submit silently to your Google Form using the prefilled link
     const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLSfzv52Kfhh0Fw1ERDi2ohPzvbUo_QrhHDtQBnLiqEKi4dPkPA/formResponse?entry.2005620554=${encodeURIComponent(name)}&entry.1045781291=${encodeURIComponent(email)}`;
     fetch(prefillURL, {mode:'no-cors'});
 }
