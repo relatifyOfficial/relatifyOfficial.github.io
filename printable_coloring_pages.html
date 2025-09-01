@@ -149,8 +149,8 @@ function submitForm(e){
     document.getElementById('leadText').innerText = "Thank you!";
     document.getElementById('getProductBtn').style.display = 'inline-block';
 
-    // Submit silently to your Google Form using the prefilled link
-    const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLSdDG3CrgUMeSiVQfiI8mtlhJ-wMPu0YdNdSmSlBLjCcjrcA7Q/formResponse?entry.1691291158=${encodeURIComponent(name)}&entry.119406904=${encodeURIComponent(email)}`;
+    // Submit silently to new Google Form using your prefilled link
+    const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLSfzv52Kfhh0Fw1ERDi2ohPzvbUo_QrhHDtQBnLiqEKi4dPkPA/formResponse?entry.2005620554=${encodeURIComponent(name)}&entry.1045781291=${encodeURIComponent(email)}`;
     fetch(prefillURL, {mode:'no-cors'});
 }
 </script>
