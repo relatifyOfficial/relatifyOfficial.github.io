@@ -94,11 +94,6 @@ button:hover {
     font-size: 1.1rem;
 }
 
-#getProductBtn {
-    display: none;
-    margin-top: 20px;
-}
-
 footer {
     margin-top: 40px;
     padding: 15px;
@@ -129,7 +124,6 @@ footer {
             <input type="email" name="email" placeholder="Your Email" required>
             <button type="submit">Submit</button>
         </form>
-        <button id="getProductBtn" onclick="window.location.href='https://forms.gle/yT6V2BHRDNf8Tsxd7'">Get the Product</button>
     </div>
 </div>
 
@@ -144,10 +138,10 @@ function submitForm(e){
     const name = document.querySelector('input[name="name"]').value;
     const email = document.querySelector('input[name="email"]').value;
 
-    // Show thank you and the product button
+    // Hide the form
     document.getElementById('leadForm').style.display = 'none';
-    document.getElementById('leadText').innerText = "Thank you!";
-    document.getElementById('getProductBtn').style.display = 'inline-block';
+    // Show thank you message
+    document.getElementById('leadText').innerText = "Thank you! Check your email for the product.";
 
     // Correct Google Form prefill URL
     const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
