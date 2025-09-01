@@ -17,49 +17,6 @@ body {
     position: relative;
 }
 
-/* Floating doodles */
-body::before, body::after {
-    content: '';
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, #FFD600 40%, transparent 41%);
-    border-radius: 50%;
-    top: 50px;
-    left: 20px;
-    opacity: 0.6;
-    transform: rotate(20deg);
-    z-index: 0;
-}
-
-body::after {
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, #FF4081 40%, transparent 41%);
-    top: 200px;
-    right: 30px;
-    transform: rotate(-15deg);
-}
-
-.doodle-star {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #00BFA5;
-    clip-path: polygon(
-        50% 0%, 61% 35%, 98% 35%, 
-        68% 57%, 79% 91%, 50% 70%, 
-        21% 91%, 32% 57%, 2% 35%, 
-        39% 35%
-    );
-    animation: float 4s ease-in-out infinite alternate;
-}
-
-@keyframes float {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
-}
-
 header {
     background-color: #1A237E;
     padding: 25px;
@@ -75,13 +32,6 @@ header {
     max-width: 600px;
     margin: 40px auto;
     box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);
-    position: relative;
-    z-index: 1;
-}
-
-.product-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 25px rgba(255, 255, 0, 0.4);
 }
 
 .images-container {
@@ -154,8 +104,6 @@ footer {
     padding: 15px;
     background-color: #1A237E;
     color: #fff;
-    position: relative;
-    z-index: 1;
 }
 </style>
 </head>
@@ -177,8 +125,8 @@ footer {
     <div id="leadFormContainer">
         <p id="leadText">Enter your name & email to get this product:</p>
         <form id="leadForm" onsubmit="submitForm(event)">
-            <input type="text" name="entry.1277095329" placeholder="Your Name" required>
-            <input type="email" name="entry.860146445" placeholder="Your Email" required>
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
             <button type="submit">Submit</button>
         </form>
         <button id="getProductBtn" onclick="window.location.href='https://warriorplus.com/o2/a/sq49yfs/0'">Get the Product</button>
@@ -189,30 +137,21 @@ footer {
     &copy; 2025 Relatify
 </footer>
 
-<!-- Floating stars -->
-<div class="doodle-star" style="top:100px; left:50px;"></div>
-<div class="doodle-star" style="top:250px; left:150px; background:#FFEB3B;"></div>
-<div class="doodle-star" style="top:350px; left:300px; background:#FF4081;"></div>
-<div class="doodle-star" style="top:150px; right:100px; background:#00E5FF;"></div>
-
 <script>
 function submitForm(e){
     e.preventDefault();
+    
+    const name = document.querySelector('input[name="name"]').value;
+    const email = document.querySelector('input[name="email"]').value;
 
-    // Shrink form and show thank you
-    const leadFormContainer = document.getElementById('leadFormContainer');
-    const leadForm = document.getElementById('leadForm');
-    leadForm.style.display = 'none';
+    // Show thank you and the product button
+    document.getElementById('leadForm').style.display = 'none';
     document.getElementById('leadText').innerText = "Thank you!";
     document.getElementById('getProductBtn').style.display = 'inline-block';
 
-    // Optional: send data to Google Form in background
-    const formData = new FormData(leadForm);
-    fetch("https://docs.google.com/forms/d/e/1FAIpQLScTLPwLUDPGXfGzn2A/formResponse", {
-        method: "POST",
-        mode: "no-cors",
-        body: formData
-    });
+    // Submit silently to your Google Form using the prefilled link
+    const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLSdDG3CrgUMeSiVQfiI8mtlhJ-wMPu0YdNdSmSlBLjCcjrcA7Q/formResponse?entry.1691291158=${encodeURIComponent(name)}&entry.119406904=${encodeURIComponent(email)}`;
+    fetch(prefillURL, {mode:'no-cors'});
 }
 </script>
 
