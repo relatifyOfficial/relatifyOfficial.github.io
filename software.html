@@ -93,6 +93,12 @@ footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-siz
 <footer>&copy; 2025 Relatify</footer>
 
 <script>
+// Redirect to index.html if user hasn't subscribed
+if(sessionStorage.getItem('formSubmitted') !== 'true'){
+    alert("You must subscribe first!");
+    window.location.href = "index.html";
+}
+
 const grid = document.getElementById('productGrid');
 const noResults = document.getElementById('noResults');
 const matchCount = document.getElementById('matchCount');
