@@ -21,6 +21,7 @@ h2 { color:#FFD600; font-size:1.8rem; margin-bottom:15px; }
 .category-tags button { background:#1E1E1E; color:#fff; border:none; padding:7px 12px; margin:4px; border-radius:20px; cursor:pointer; font-size:0.9rem; transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.2s; }
 .category-tags button.selected { background:#00BFA5; color:#fff; }
 .category-tags button.clear-all { background:#FFD600; color:#000; }
+
 /* Hover effect for desktop */
 @media (hover: hover) and (pointer: fine) {
   .category-tags button:hover:not(.selected):not(.clear-all) { transform: scale(1.08); box-shadow: 0 0 10px #00BFA5; }
@@ -190,7 +191,7 @@ function renderProducts(allProducts, query, selectedCats) {
         <img src="${product.img}" alt="${product.name}">
         <h3>${highlight(product.name, query)}</h3>
         <p>${highlight(product.description, query)}</p>
-        <a href="${product.link}">Get Here</a>
+        <a href="${product.link}" target="_blank" rel="noopener noreferrer">Get Here</a>
       `;
       grid.appendChild(card);
       setTimeout(() => card.classList.add('visible'), 10);
