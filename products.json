@@ -1,74 +1,8 @@
 [
   {
-    "name": "Sample AI Tool",
-    "img": "https://via.placeholder.com/250x150.png?text=AI+Tool",
-    "description": "An AI-powered software to automate tasks and increase productivity.",
-    "link": "abc.html"
-  },
-  {
-    "name": "AI Assistant",
-    "img": "https://via.placeholder.com/250x150.png?text=AI+Assistant",
-    "description": "Virtual assistant software to help with scheduling and emails.",
-    "link": "assistant.html"
-  },
-  {
-    "name": "Productivity Booster",
-    "img": "https://via.placeholder.com/250x150.png?text=Productivity",
-    "description": "Helps you manage your tasks efficiently with smart reminders.",
-    "link": "productivity.html"
-  },
-  {
-    "name": "Focus Timer",
-    "img": "https://via.placeholder.com/250x150.png?text=Focus+Timer",
-    "description": "Pomodoro-style timer to help you focus and manage breaks.",
-    "link": "focustimer.html"
-  },
-  {
-    "name": "Utility Master",
-    "img": "https://via.placeholder.com/250x150.png?text=Utility",
-    "description": "A set of utilities to optimize your system and workflow.",
-    "link": "utility.html"
-  },
-  {
-    "name": "File Organizer",
-    "img": "https://via.placeholder.com/250x150.png?text=File+Organizer",
-    "description": "Organizes and categorizes your files automatically.",
-    "link": "fileorganizer.html"
-  },
-  {
-    "name": "Code Compiler",
-    "img": "https://via.placeholder.com/250x150.png?text=Code+Compiler",
-    "description": "Compile and run your code in multiple programming languages.",
-    "link": "compiler.html"
-  },
-  {
-    "name": "Task Tracker",
-    "img": "https://via.placeholder.com/250x150.png?text=Task+Tracker",
-    "description": "Track your tasks and progress with ease.",
-    "link": "tasktracker.html"
-  },
-  {
-    "name": "Email Scheduler",
-    "img": "https://via.placeholder.com/250x150.png?text=Email+Scheduler",
-    "description": "Schedule emails to be sent automatically at the right time.",
-    "link": "emailscheduler.html"
-  },
-  {
-    "name": "PDF Converter",
-    "img": "https://via.placeholder.com/250x150.png?text=PDF+Converter",
-    "description": "Convert files to PDF and merge documents quickly.",
-    "link": "pdfconverter.html"
-  },
-  {
-    "name": "Backup Manager",
-    "img": "https://via.placeholder.com/250x150.png?text=Backup+Manager",
-    "description": "Automate backups to keep your data safe.",
-    "link": "backup.html"
-  },
-  {
-    "name": "Time Logger",
-    "img": "https://via.placeholder.com/250x150.png?text=Time+Logger",
-    "description": "Log and analyze your work time for better productivity.",
-    "link": "timelogger.html"
+    "name": "VidSpace AI",
+    "img": "images/VidSpaceAI/vsa_1.jpg",
+    "description": "Host, play, and market your 4K HD videos with ease. Stream in 4K & HDR, customize your video player, add interactive elements, and generate leads effortlessly.",
+    "link": "vidspaceai.html"
   }
 ]
