@@ -6,6 +6,7 @@
 <title>Relatify - Software</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap" rel="stylesheet">
 <style>
+/* Body and header */
 body { 
   font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif; 
   background:#121212; 
@@ -24,48 +25,80 @@ header {
 main { 
   padding:40px 20px; 
 }
+
+/* Headings */
 h2 { 
   color:#FFD600; 
   font-size:2rem; 
-  margin-bottom:30px; 
+  margin-bottom:20px; 
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  justify-items: center;
+
+/* Search box */
+.search-box { 
+  margin-bottom: 30px; 
 }
-.card {
-  background:#1E1E1E;
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.5);
-  width:250px;
-  text-align:center;
+.search-box input {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  width: 300px;
+  font-size: 1rem;
+  background: #fff;        /* White background */
+  color: #000;             /* Dark text */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
-.card img {
-  width:100%;
-  border-radius:10px;
-  margin-bottom:15px;
+.search-box input::placeholder {
+  color: #888;             /* Gray placeholder text */
 }
-.card h3 {
-  color:#00BFA5;
-  font-size:1.3rem;
-  margin-bottom:15px;
+
+/* Grid */
+.grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+  gap: 30px; 
+  justify-items: center; 
 }
-.card a {
-  background:#00BFA5;
-  color:#fff;
-  padding:10px 20px;
-  border-radius:8px;
-  text-decoration:none;
-  font-size:1rem;
-  display:inline-block;
-  transition:background 0.3s;
+@media(max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* Product cards */
+.card { 
+  background:#1E1E1E; 
+  padding:20px; 
+  border-radius:15px; 
+  box-shadow:0 4px 10px rgba(0,0,0,0.5); 
+  width:250px; 
+  text-align:center; 
+}
+.card img { 
+  width:100%; 
+  border-radius:10px; 
+  margin-bottom:15px; 
+}
+.card h3 { 
+  color:#00BFA5; 
+  font-size:1.3rem; 
+  margin-bottom:15px; 
+}
+.card a { 
+  background:#00BFA5; 
+  color:#fff; 
+  padding:10px 20px; 
+  border-radius:8px; 
+  text-decoration:none; 
+  font-size:1rem; 
+  display:inline-block; 
+  transition:background 0.3s; 
 }
 .card a:hover { 
   background:#26A69A; 
 }
+
+/* Footer */
 footer { 
   margin-top:40px; 
   padding:15px; 
@@ -80,17 +113,68 @@ footer {
 
 <main>
   <h2>💻 Softwares</h2>
-  <div class="grid">
-    <!-- Product Placeholder -->
-    <div class="card">
-      <img src="https://via.placeholder.com/250x150" alt="Software Image">
-      <h3>Software Name</h3>
-      <a href="abc.html">Get Here</a>
-    </div>
+
+  <!-- Search box -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search for software...">
+  </div>
+
+  <!-- Product grid -->
+  <div class="grid" id="productGrid">
+    <!-- Products will be dynamically loaded here -->
   </div>
 </main>
 
 <footer>&copy; 2025 Relatify</footer>
+
+<script>
+// JSON file hosted locally (products.json)
+const productsFile = 'products.json';
+
+// Fetch products from JSON
+async function fetchProducts() {
+  try {
+    const response = await fetch(productsFile);
+    const products = await response.json();
+    return products;
+  } catch (error) {
+    console.error('Failed to load products:', error);
+    return [];
+  }
+}
+
+// Render products in the grid
+function renderProducts(filteredProducts) {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  filteredProducts.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${product.img}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <a href="${product.link}">Get Here</a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Live search
+function setupSearch(products) {
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+    renderProducts(filtered);
+  });
+}
+
+// Initialize
+fetchProducts().then(products => {
+  renderProducts(products); // show all initially
+  setupSearch(products);    // setup live search
+});
+</script>
 
 </body>
 </html>
