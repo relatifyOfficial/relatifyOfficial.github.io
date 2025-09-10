@@ -69,23 +69,36 @@
         z-index: 1;
     }
 
-    header img.logo {
-        width: 100px;          /* equal width & height */
-        height: 100px;
-        object-fit: cover;     /* crops inside the circle */
-        border-radius: 50%;    /* perfect circle */
+    /* Logo Circle */
+    .logo-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 10px auto;
         border: 3px solid #FFD600;
-        margin-bottom: 10px;
         background-color: #fff;
-        animation: jumpIn 1s ease; /* bounce on load */
+        animation: popBounce 1s ease; /* run on page load */
+        cursor: pointer;
     }
 
-    @keyframes jumpIn {
-        0% { transform: translateY(0); }
-        30% { transform: translateY(-40px); }
-        50% { transform: translateY(0); }
-        70% { transform: translateY(-20px); }
-        100% { transform: translateY(0); }
+    .logo-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @keyframes popBounce {
+        0% { transform: scale(1); }
+        30% { transform: scale(1.4); }  /* jump toward viewer */
+        50% { transform: scale(1); }
+        70% { transform: scale(1.2); }  /* small rebound */
+        100% { transform: scale(1); }
+    }
+
+    /* Bounce again when hovered */
+    .logo-circle:hover {
+        animation: popBounce 0.8s ease;
     }
 
     main {
@@ -161,7 +174,9 @@
 <body>
 
 <header>
-    <img src="logo.png" alt="Relatify Logo" class="logo">
+    <div class="logo-circle">
+        <img src="logo.jpg" alt="Relatify Logo">
+    </div>
     Welcome to Relatify
 </header>
 
@@ -201,7 +216,7 @@ function submitForm(e){
     document.getElementById('leadForm').style.display = 'none';
     document.getElementById('leadText').innerText = "Thank you! Redirecting...";
 
-    // Optional: Log to Google Forms silently
+    // Optional: If you still want to log to Google Forms silently
     const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
     fetch(prefillURL, {mode:'no-cors'});
 
