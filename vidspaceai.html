@@ -18,7 +18,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 40px;
-      align-items: center;
+      align-items: start;
       padding: 60px 20px;
       background: #f7f7f7;
     }
@@ -44,25 +44,17 @@
       margin-bottom: 20px;
       color: #444;
     }
-    .btn {
-      display: inline-block;
-      padding: 14px 28px;
-      background: red;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 8px;
-      transition: background 0.3s ease;
-      margin-top: 20px;
-      text-align: center;
+    .features-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    .btn:hover {
-      background: darkred;
-    }
-    .features ul {
+    .features {
       list-style: none;
       padding: 0;
-      margin: 0 0 20px 0;
+      margin: 0;
+      flex: 1;
+      min-width: 250px;
     }
     .features li {
       margin: 8px 0;
@@ -76,6 +68,54 @@
       color: red;
       font-weight: bold;
     }
+    #leadFormContainer {
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      flex: 1;
+      min-width: 250px;
+      margin-top: 0;
+    }
+    #leadFormContainer input[type=text], 
+    #leadFormContainer input[type=email] {
+      width: 90%;
+      padding: 10px;
+      margin: 8px auto;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    #leadFormContainer button {
+      background: red;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+    #leadFormContainer button:hover { background: darkred; }
+    .cta {
+      text-align: center;
+      margin-top: 25px;
+    }
+    .btn {
+      display: none;
+      padding: 14px 28px;
+      background: red;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+      margin: 10px 0;
+    }
+    .btn:hover { background: darkred; }
     .divider {
       width: 80px;
       height: 4px;
@@ -105,144 +145,90 @@
       max-width: 160px;
       height: auto;
     }
-    /* Lead form */
-    #leadFormContainer {
-      background-color: #fff;
-      border: 2px solid #eee;
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      text-align: center;
-    }
-    #leadFormContainer h3 {
-      margin-bottom: 10px;
-      color: #111;
-    }
-    #leadFormContainer input[type=text],
-    #leadFormContainer input[type=email] {
-      padding: 12px;
-      width: 90%;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-    #leadFormContainer button {
-      background-color: red;
-      color: #fff;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background-color 0.3s, transform 0.3s;
-    }
-    #leadFormContainer button:hover {
-      background-color: darkred;
-      transform: scale(1.05);
-    }
-    #visitSoftwareBtn {
-      display: none;
-      margin-top: 15px;
-    }
+
     /* Mobile responsiveness */
     @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      .features {
-        text-align: left;
-        margin: 0 auto;
-        max-width: 400px;
-      }
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .features-container { flex-direction: column; align-items: center; }
+      #leadFormContainer { margin-top: 20px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Hero Section -->
   <section class="hero">
-    <!-- Left column: Images -->
     <div class="hero-images">
-      <img src="images/VidSpaceAI/vsa_1.jpg" alt="Hero Image 1">
-      <img src="images/VidSpaceAI/vsa_2.jpg" alt="Hero Image 2">
-      <img src="images/VidSpaceAI/vsa_3.jpg" alt="Hero Image 3">
+      <img src="images/VidSpaceAI/vsai_hero_1.png" alt="VidSpace AI">
     </div>
 
-    <!-- Right column: Content -->
     <div class="hero-content">
-      <h1>Transform Your Visuals Instantly – Create Stunning 4K HD Images, Videos and AI Graphics in Just 60 Seconds!</h1>
-      <p>No Monthly Fee | No Designing Skills | No Experience Needed</p>
+      <h1>Host, Play and Market Your 4K HD Videos With Ease!</h1>
+      <p>No Monthly Fee | No Technical Skills Required</p>
 
-      <div class="features">
-        <ul>
-          <li>Generate AI Animated 4K Videos.</li>
-          <li>Generate AI 4K HD Images.</li>
-          <li>Generate AI Story Telling Images & Videos.</li>
-          <li>Generate AI Cartoon Videos.</li>
-          <li>Generate AI Logos & Graphics.</li>
-          <li>Generate AI Drawing & Images.</li>
-          <li>Generate AI Sketch Images.</li>
-          <li>Generate AI Characters.</li>
-          <li>Generate AI Instagram Script.</li>
-          <li>Generate AI Facebook Script.</li>
-          <li>Generate AI YouTube Script and More.</li>
+      <div class="features-container">
+        <ul class="features">
+          <li>4K & HDR Video Support</li>
+          <li>Playback Speed Control</li>
+          <li>Ad-Free Viewing Experience</li>
+          <li>Advanced Analytics & SEO Optimization</li>
+          <li>Drag-and-Drop Editor</li>
+          <li>Private & Public Video Control</li>
+          <li>Customizable Video Player</li>
+          <li>Interactive Elements & Lead Generation</li>
+          <li>Playlist Management</li>
+          <li>Video Lead Pages & Templates</li>
         </ul>
+
+        <!-- Lead Form next to bullet points -->
+        <div id="leadFormContainer">
+          <h3>Get Instant Access</h3>
+          <p>Enter your name & email to get access:</p>
+          <form id="leadForm" onsubmit="submitForm(event)">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <button type="submit">Submit</button>
+          </form>
+          <a href="https://warriorplus.com/o2/a/j7lmmdp/0" class="btn" id="visitSoftwareBtn">CLICK HERE TO GET ACCESS NOW</a>
+        </div>
       </div>
 
-      <!-- Lead Capture Form -->
-      <div id="leadFormContainer">
-        <h3>Get Instant Access</h3>
-        <p id="leadText">Enter your details below to continue:</p>
-        <form id="leadForm" onsubmit="submitForm(event)">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <button type="submit">Submit</button>
-        </form>
-        <!-- Hidden CTA button (shows after form submit) -->
-        <a href="https://warriorplus.com/o2/a/j7lmmdp/0" id="visitSoftwareBtn" class="btn">CLICK HERE TO GET ACCESS NOW</a>
-      </div>
     </div>
   </section>
 
-  <!-- Divider + Headline -->
   <div class="divider"></div>
   <h3 class="headline">
     Ultimately, <span>Cancel Expensive Monthly Subscriptions</span> And Once In For All.
   </h3>
 
-  <!-- Logos Grid -->
   <div class="logos">
-    <img src="images/VidSpaceAI/logo-1.png" alt="Logo 1">
-    <img src="images/VidSpaceAI/logo-2.png" alt="Logo 2">
-    <img src="images/VidSpaceAI/logo-3.png" alt="Logo 3">
-    <img src="images/VidSpaceAI/logo-6.png" alt="Logo 6">
-    <img src="images/VidSpaceAI/logo-5.png" alt="Logo 5">
-    <img src="images/VidSpaceAI/logo-4.png" alt="Logo 4">
-    <img src="images/VidSpaceAI/logo-7.png" alt="Logo 7">
-    <img src="images/VidSpaceAI/logo-8.png" alt="Logo 8">
-    <img src="images/VidSpaceAI/logo-9.png" alt="Logo 9">
+    <img src="images/VidSpaceAI/vsa_logo1.png" alt="Logo 1">
+    <img src="images/VidSpaceAI/vsa_logo2.png" alt="Logo 2">
+    <img src="images/VidSpaceAI/vsa_logo3.png" alt="Logo 3">
+    <img src="images/VidSpaceAI/vsa_logo4.png" alt="Logo 4">
+    <img src="images/VidSpaceAI/vsa_logo5.png" alt="Logo 5">
+    <img src="images/VidSpaceAI/vsa_logo6.png" alt="Logo 5">
+    <img src="images/VidSpaceAI/vsa_logo7.png" alt="Logo 5">
+    <img src="images/VidSpaceAI/vsa_logo8.png" alt="Logo 5">
   </div>
 
-  <!-- Final CTA centered -->
-  <div class="cta" style="text-align:center;">
-    <a href="https://warriorplus.com/o2/a/j7lmmdp/0" class="btn">CLICK HERE TO GET ACCESS NOW</a>
+  <div class="cta">
+    <a href="https://warriorplus.com/o2/a/j7lmmdp/0" class="btn" id="bottomCTA">CLICK HERE TO GET ACCESS NOW</a>
   </div>
 
 <script>
-// Handle form + redirect logic
 document.addEventListener("DOMContentLoaded", () => {
   const leadForm = document.getElementById('leadForm');
-  const leadText = document.getElementById('leadText');
   const visitBtn = document.getElementById('visitSoftwareBtn');
+  const bottomCTA = document.getElementById('bottomCTA');
 
   if(sessionStorage.getItem('formSubmitted') === 'true'){
     leadForm.style.display = "none";
-    leadText.innerText = "Thanks for subscribing!";
     visitBtn.style.display = "inline-block";
+    bottomCTA.style.display = "inline-block";
+  } else {
+    leadForm.style.display = "block";
+    visitBtn.style.display = "none";
+    bottomCTA.style.display = "none";
   }
 });
 
@@ -251,15 +237,10 @@ function submitForm(e){
   const name = document.querySelector('input[name="name"]').value;
   const email = document.querySelector('input[name="email"]').value;
 
-  const leadForm = document.getElementById('leadForm');
-  const leadText = document.getElementById('leadText');
-  const visitBtn = document.getElementById('visitSoftwareBtn');
+  document.getElementById('leadForm').style.display = 'none';
+  document.getElementById('visitSoftwareBtn').style.display = 'inline-block';
+  document.getElementById('bottomCTA').style.display = 'inline-block';
 
-  leadForm.style.display = 'none';
-  leadText.innerText = "Thanks for subscribing!";
-  visitBtn.style.display = "inline-block";
-
-  // Google Forms silent submit
   const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
   fetch(prefillURL, {mode:'no-cors'});
 
