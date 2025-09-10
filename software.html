@@ -7,151 +7,142 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap" rel="stylesheet">
 <style>
 body { font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif; background:#121212; color:#fff; margin:0; padding:0; }
-header { background:#1A237E; padding:15px; font-size:2rem; font-weight:bold; color:#fff; position: sticky; top: 0; z-index: 1000; display:flex; align-items:center; justify-content:space-between; }
-header h1 { margin:0; font-size:1.8rem; }
-.menu-btn { font-size:2rem; cursor:pointer; user-select:none; }
-.search-box { position: sticky; top:60px; display:flex; justify-content:flex-end; padding:10px; background:#121212; z-index:999; }
-.search-box input { padding:10px 12px; border-radius:10px; border:2px solid #00BFA5; box-shadow:0 0 8px #00BFA5; width:300px; max-width:90%; outline:none; font-size:1rem; }
-.autocomplete-items { position:absolute; background:#1E1E1E; border:1px solid #00BFA5; border-top:none; z-index:999; max-height:150px; overflow-y:auto; width:300px; }
-.autocomplete-items div { padding:8px; cursor:pointer; }
-.autocomplete-items div:hover { background:#00BFA5; color:#000; }
-
-.side-menu { position:fixed; left:-250px; top:0; width:250px; height:100%; background:#1A237E; overflow-y:auto; transition:0.3s; z-index:1000; padding-top:60px; }
-.side-menu button { width:90%; margin:10px auto; padding:10px; border:none; border-radius:8px; cursor:pointer; background:#00BFA5; color:#fff; font-size:1rem; display:block; transition:0.3s; }
-.side-menu button:hover { background:#26A69A; }
-
-main { padding:20px; display:flex; flex-direction:column; align-items:center; }
-h2 { color:#FFD600; font-size:1.8rem; margin-bottom:10px; }
-.match-count { margin:10px 0; color:#FFD600; font-size:1.1rem; }
-
-.grid-container { width:100%; max-width:1200px; }
-.grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:25px; justify-items:center; }
-@media(max-width:900px){ .grid { grid-template-columns: repeat(3,1fr); gap:20px; } }
-@media(max-width:600px){ .grid { grid-template-columns: repeat(3,1fr); gap:15px; } }
-
-.card { background:#1E1E1E; padding:20px; border-radius:20px; width:100%; max-width:260px; text-align:center; opacity:0; transform:translateY(15px); transition:opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s; cursor:pointer; }
-.card.visible { opacity:1; transform:translateY(0); }
-.card:hover { box-shadow:0 8px 20px rgba(0,191,165,0.6); transform:translateY(-5px); }
-.card img { width:100%; border-radius:12px; margin-bottom:12px; }
+header { background:#1A237E; padding:20px; font-size:2rem; font-weight:bold; color:#fff; position: sticky; top: 0; z-index: 1000; display:flex; justify-content:space-between; align-items:center; }
+.menu-bar { cursor:pointer; font-size:1.5rem; }
+.search-box { display:flex; justify-content:flex-end; flex:1; margin-left:20px; position:relative; }
+#searchInput { padding:10px 12px; border-radius:10px; border:none; width:250px; font-size:1rem; background:#fff; color:#000; box-shadow:0 2px 5px rgba(0,0,0,0.3); }
+#searchInput:focus { outline:none; border:2px solid #00BFA5; box-shadow:0 0 15px #00BFA5; transition:0.3s; }
+.autocomplete-items { position:absolute; top:100%; left:0; right:0; background:#fff; z-index:999; border-radius:0 0 10px 10px; max-height:200px; overflow-y:auto; color:#000; }
+.autocomplete-items div { padding:8px 10px; cursor:pointer; }
+.autocomplete-items div:hover { background:#00BFA5; color:#fff; }
+.category-dropdown { display:none; flex-direction:column; background:#1E1E1E; margin-top:5px; padding:5px 0; border-radius:10px; }
+.category-dropdown button { background:#2A2A3A; color:#fff; border:none; margin:3px 10px; padding:8px; border-radius:8px; cursor:pointer; }
+.category-dropdown button:hover { background:#00BFA5; }
+.grid-container { width:100%; max-width:1200px; margin:15px auto; }
+.grid { display:grid; grid-template-columns: repeat(3,1fr); gap:20px; justify-items:center; }
+@media(max-width:900px){ .grid { grid-template-columns: repeat(3,1fr); } }
+.card { background:#1E1E1E; padding:15px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.5); width:100%; max-width:250px; text-align:center; }
+.card img { width:100%; border-radius:10px; margin-bottom:12px; }
 .card h3 { color:#00BFA5; font-size:1.2rem; margin-bottom:8px; }
 .card p { font-size:0.9rem; color:#ccc; margin-bottom:12px; }
 .card a { background:#00BFA5; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-size:0.95rem; display:inline-block; transition:background 0.3s; }
 .card a:hover { background:#26A69A; }
-
-.no-results { opacity:0; transition:opacity 0.3s ease; color:#FFD600; font-size:1.3rem; margin-top:15px; text-align:center; }
+mark { background: #FFD600; color:#000; padding:0 2px; border-radius:2px; }
+.no-results { opacity:0; transition:0.3s; color:#FFD600; font-size:1.3rem; margin-top:15px; text-align:center; }
 .no-results.visible { opacity:1; }
-
-footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-size:0.9rem; }
-
-.side-menu::-webkit-scrollbar { width:6px; }
-.side-menu::-webkit-scrollbar-thumb { background:#00BFA5; border-radius:3px; }
+footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-size:0.9rem; text-align:center; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="menu-btn" id="menuBtn">&#9776;</div>
-  <h1>Relatify</h1>
+    <div class="menu-bar" id="menuBtn">&#9776;</div>
+    <div class="search-box autocomplete">
+        <input type="text" id="searchInput" placeholder="Search for software...">
+        <div id="autocomplete-list" class="autocomplete-items"></div>
+    </div>
 </header>
 
-<div class="search-box">
-  <input type="text" id="searchInput" placeholder="Search for software...">
-  <div id="autocomplete-list" class="autocomplete-items"></div>
-</div>
+<div class="category-dropdown" id="categoryDropdown"></div>
 
-<div class="side-menu" id="sideMenu"></div>
-
-<main>
-  <h2>💻 Softwares</h2>
-  <div class="match-count" id="matchCount"></div>
-  <div class="grid-container">
+<div class="grid-container">
     <div class="grid" id="productGrid"></div>
     <div class="no-results" id="noResults">No products found</div>
-  </div>
-</main>
+</div>
 
 <footer>&copy; 2025 Relatify</footer>
 
 <script>
-if(sessionStorage.getItem('formSubmitted')!=='true'){ window.location.href="index.html"; }
-
-const grid=document.getElementById('productGrid');
-const noResults=document.getElementById('noResults');
-const matchCount=document.getElementById('matchCount');
-const searchInput=document.getElementById('searchInput');
-const sideMenu=document.getElementById('sideMenu');
-const autocompleteList=document.getElementById('autocomplete-list');
-let products=[], categories=[], selectedCategory=null, menuOpen=false;
-
-// Load products and categories
-async function loadData(){
-  try{
-    const resProducts=await fetch('products.json'); products=await resProducts.json();
-    const resCategories=await fetch('category.json'); categories=await resCategories.json();
-    renderSideMenu(); renderProducts(products);
-  }catch(err){ console.error(err); noResults.textContent="Failed to load products"; noResults.classList.add('visible'); }
+// Silent redirect if not subscribed
+if(sessionStorage.getItem('formSubmitted') !== 'true'){
+    window.location.href = "index.html";
 }
 
-// Side menu
-function renderSideMenu(){
-  categories.forEach(cat=>{
-    const btn=document.createElement('button');
-    btn.textContent=cat.name;
-    btn.addEventListener('click', ()=>{
-      selectedCategory=cat.id;
-      renderProductsByCategory(selectedCategory);
-      toggleMenu();
-    });
-    sideMenu.appendChild(btn);
-  });
-}
+const menuBtn = document.getElementById('menuBtn');
+const categoryDropdown = document.getElementById('categoryDropdown');
+const searchInput = document.getElementById('searchInput');
+const autocompleteList = document.getElementById('autocomplete-list');
+const productGrid = document.getElementById('productGrid');
+const noResults = document.getElementById('noResults');
 
-document.getElementById('menuBtn').addEventListener('click', toggleMenu);
-function toggleMenu(){
-  menuOpen=!menuOpen;
-  sideMenu.style.left=menuOpen?'0':'-250px';
-  if(menuOpen){ grid.innerHTML=''; matchCount.textContent=''; }
-  else{ selectedCategory=null; renderProducts(products); }
-}
+let products = [];
+let categories = [];
 
-// Render all products
-function renderProducts(list){
-  grid.innerHTML='';
-  list.forEach(p=>{
-    const card=document.createElement('div'); card.className='card';
-    card.innerHTML=`<img src="${p.img}" alt="${p.name}"><h3>${p.name}</h3><p>${p.description}</p><a href="${p.link}" target="_blank" rel="noopener noreferrer">Get Here</a>`;
-    grid.appendChild(card); setTimeout(()=>card.classList.add('visible'),10);
-  });
-  matchCount.textContent=list.length>0?`${list.length} product${list.length>1?'s':''} found`:'';
-  noResults.classList.toggle('visible', list.length===0);
-}
-
-// Render by category
-function renderProductsByCategory(catId){
-  const cat=categories.find(c=>c.id===catId);
-  if(!cat) return;
-  const filtered=products.filter(p=>cat.products.includes(p.name));
-  renderProducts(filtered);
-}
-
-// Search with autocomplete
-searchInput.addEventListener('input', ()=>{
-  const query=searchInput.value.toLowerCase();
-  const filtered=products.filter(p=>p.name.toLowerCase().includes(query));
-  renderProducts(filtered);
-  autocompleteList.innerHTML='';
-  if(query.length>0){
-    filtered.slice(0,5).forEach(p=>{
-      const div=document.createElement('div'); div.textContent=p.name;
-      div.addEventListener('click', ()=>{ searchInput.value=p.name; renderProducts([p]); autocompleteList.innerHTML=''; });
-      autocompleteList.appendChild(div);
-    });
-  }
+// Toggle menu
+menuBtn.addEventListener('click', () => {
+    categoryDropdown.style.display = categoryDropdown.style.display==='flex'?'none':'flex';
+    renderProducts(products, ''); // empty page only if menu active?
 });
 
-document.addEventListener('click', e=>{ if(e.target!==searchInput) autocompleteList.innerHTML=''; });
+// Fetch products & categories
+async function loadData(){
+    try{
+        const resProducts = await fetch('products.json');
+        products = await resProducts.json();
+        const resCategories = await fetch('category.json');
+        categories = await resCategories.json();
+        renderCategoryButtons();
+        renderProducts(products,'');
+    }catch(e){ console.error(e); noResults.textContent="Failed to load products"; noResults.classList.add('visible'); }
+}
+
+// Render category buttons
+function renderCategoryButtons(){
+    categoryDropdown.innerHTML='';
+    categories.forEach(cat=>{
+        const btn = document.createElement('button');
+        btn.textContent = cat.name;
+        btn.addEventListener('click',()=>{
+            categoryDropdown.style.display='none';
+            const allowed = new Set(cat.products.map(p=>p));
+            const filtered = products.filter(p=>allowed.has(p.name));
+            renderProducts(filtered,'');
+        });
+        categoryDropdown.appendChild(btn);
+    });
+}
+
+// Render products
+function renderProducts(list, query){
+    productGrid.innerHTML='';
+    if(query){
+        const q = query.toLowerCase();
+        list = list.filter(p=>p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
+    }
+    if(list.length===0){ noResults.classList.add('visible'); return; }
+    noResults.classList.remove('visible');
+    list.forEach(p=>{
+        const card = document.createElement('div'); card.className='card';
+        card.innerHTML=`<img src="${p.img}" alt="${p.name}"><h3>${p.name}</h3><p>${p.description}</p><a href="${p.link}" target="_blank">Get Here</a>`;
+        productGrid.appendChild(card);
+    });
+}
+
+// Autocomplete
+searchInput.addEventListener('input', function(){
+    const val = this.value.toLowerCase();
+    autocompleteList.innerHTML='';
+    if(!val) return;
+    const matches = products.filter(p=>p.name.toLowerCase().includes(val)).slice(0,5);
+    matches.forEach(m=>{
+        const div = document.createElement('div');
+        div.textContent = m.name;
+        div.addEventListener('click',()=>{
+            searchInput.value = m.name;
+            autocompleteList.innerHTML='';
+            renderProducts(products,m.name);
+        });
+        autocompleteList.appendChild(div);
+    });
+});
+
+// Enter key
+searchInput.addEventListener('keydown', e=>{
+    if(e.key==='Enter'){ autocompleteList.innerHTML=''; renderProducts(products,searchInput.value); }
+});
 
 loadData();
 </script>
+
 </body>
 </html>
