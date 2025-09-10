@@ -69,7 +69,6 @@
         z-index: 1;
     }
 
-    /* Logo Circle */
     .logo-circle {
         width: 120px;
         height: 120px;
@@ -78,7 +77,7 @@
         margin: 0 auto 10px auto;
         border: 3px solid #FFD600;
         background-color: #fff;
-        animation: popBounce 1s ease; /* runs on page load */
+        animation: popBounce 1s ease;
         cursor: pointer;
     }
 
@@ -90,13 +89,12 @@
 
     @keyframes popBounce {
         0% { transform: scale(1); }
-        30% { transform: scale(1.4); }  /* pop toward viewer */
+        30% { transform: scale(1.4); }
         50% { transform: scale(1); }
-        70% { transform: scale(1.2); }  /* small rebound */
+        70% { transform: scale(1.2); }
         100% { transform: scale(1); }
     }
 
-    /* Bounce again when hovered */
     .logo-circle:hover {
         animation: popBounce 0.8s ease;
     }
@@ -199,7 +197,7 @@
     &copy; 2025 Relatify
 </footer>
 
-<!-- Extra floating stars -->
+<!-- Floating Stars -->
 <div class="doodle-star" style="top:100px; left:50px;"></div>
 <div class="doodle-star" style="top:250px; left:150px; background:#FFEB3B;"></div>
 <div class="doodle-star" style="top:350px; left:300px; background:#FF4081;"></div>
@@ -207,10 +205,18 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    // Always show the lead form when page loads or user comes back
-    document.getElementById('leadFormContainer').style.display = "block";
-    document.getElementById('leadForm').style.display = "block";
-    document.getElementById('leadText').innerText = "Enter your name & email to get started:";
+    const leadForm = document.getElementById('leadForm');
+    const leadText = document.getElementById('leadText');
+
+    // Check if user already submitted form in this session
+    if(sessionStorage.getItem('formSubmitted') === 'true'){
+        leadForm.style.display = "none";
+        leadText.innerText = "Thanks for subscribing!";
+    } else {
+        leadForm.style.display = "block";
+        leadForm.reset();
+        leadText.innerText = "Enter your name & email to get started:";
+    }
 });
 
 function submitForm(e){
@@ -219,15 +225,21 @@ function submitForm(e){
     const name = document.querySelector('input[name="name"]').value;
     const email = document.querySelector('input[name="email"]').value;
 
-    // Hide the form after submission
-    document.getElementById('leadForm').style.display = 'none';
-    document.getElementById('leadText').innerText = "Thank you! Redirecting...";
+    const leadForm = document.getElementById('leadForm');
+    const leadText = document.getElementById('leadText');
 
-    // Optional: log to Google Forms silently
+    // Hide form and show thank you message
+    leadForm.style.display = 'none';
+    leadText.innerText = "Thanks for subscribing! Redirecting...";
+
+    // Send to Google Forms silently
     const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
     fetch(prefillURL, {mode:'no-cors'});
 
-    // Redirect after a short delay
+    // Save submission status in sessionStorage
+    sessionStorage.setItem('formSubmitted', 'true');
+
+    // Redirect to software.html after a short delay
     setTimeout(() => {
         window.location.href = "software.html";
     }, 1200);
