@@ -6,133 +6,263 @@
   <title>VidSpace AI</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background: #fff; color: #111; line-height: 1.6; }
-    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 60px 20px; background: #f7f7f7; }
-    .hero-images { display: flex; flex-direction: column; gap: 20px; justify-content: center; align-items: center; }
-    .hero-images img { max-width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .hero-content h1 { font-size: 2rem; font-weight: 600; margin-bottom: 15px; }
-    .hero-content p { font-size: 1.1rem; margin-bottom: 20px; color: #444; }
-    .btn { display: block; padding: 14px 28px; background: red; color: #fff; text-decoration: none; font-weight: bold; border-radius: 8px; transition: background 0.3s ease; margin: 25px auto 0 auto; text-align: center; }
-    .btn:hover { background: darkred; }
-    .features ul { list-style: none; padding: 0; margin: 0; }
-    .features li { margin: 8px 0; padding-left: 1.5em; position: relative; }
-    .features li::before { content: "✔"; position: absolute; left: 0; color: red; font-weight: bold; }
-    .divider { width: 80px; height: 4px; background: red; margin: 40px auto; border-radius: 2px; }
-    .headline { text-align: center; font-size: 1.6rem; margin: 0 20px 30px; }
-    .headline span { color: red; font-weight: 600; }
-    .logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1000px; margin: 0 auto 50px; padding: 0 20px; }
-    .logos img { max-width: 160px; height: auto; }
-    #leadFormContainer { background-color: #2A2A3A; border-radius: 15px; padding: 20px; width: 90%; max-width: 400px; margin: 30px auto; box-shadow: 0 0 15px rgba(0,191,165,0.5); text-align: center; }
-    #leadFormContainer h3 { color: #FFD600; }
-    input[type=text], input[type=email] { padding: 12px; width: 80%; margin: 10px auto; border-radius: 8px; border: none; display: block; background-color: #1E1E2F; color: #fff; font-size: 1rem; }
-    input::placeholder { color: #bbb; }
-    button { background-color: #00BFA5; color: #fff; padding: 12px 25px; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; margin-top: 15px; transition: background-color 0.3s, transform 0.3s; }
-    button:hover { background-color: #26A69A; transform: scale(1.05); }
-    #visitSoftwareBtn { display: none; margin-top: 15px; padding: 12px 20px; background: #FFD600; color: #000; border-radius: 8px; text-decoration: none; font-weight: bold; transition: transform 0.3s; }
-    #visitSoftwareBtn:hover { transform: scale(1.05); }
-    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; text-align: center; } .features { text-align: left; margin: 0 auto; max-width: 400px; } }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #111;
+      line-height: 1.6;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 60px 20px;
+      background: #f7f7f7;
+    }
+    .hero-images {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-images img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .hero-content h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #444;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background: red;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .btn:hover {
+      background: darkred;
+    }
+    .features ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+    .features li {
+      margin: 8px 0;
+      padding-left: 1.5em;
+      position: relative;
+    }
+    .features li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: red;
+      font-weight: bold;
+    }
+    .divider {
+      width: 80px;
+      height: 4px;
+      background: red;
+      margin: 40px auto;
+      border-radius: 2px;
+    }
+    .headline {
+      text-align: center;
+      font-size: 1.6rem;
+      margin: 0 20px 30px;
+    }
+    .headline span {
+      color: red;
+      font-weight: 600;
+    }
+    .logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto 50px;
+      padding: 0 20px;
+    }
+    .logos img {
+      max-width: 160px;
+      height: auto;
+    }
+    /* Lead form */
+    #leadFormContainer {
+      background-color: #fff;
+      border: 2px solid #eee;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    #leadFormContainer h3 {
+      margin-bottom: 10px;
+      color: #111;
+    }
+    #leadFormContainer input[type=text],
+    #leadFormContainer input[type=email] {
+      padding: 12px;
+      width: 90%;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    #leadFormContainer button {
+      background-color: red;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    #leadFormContainer button:hover {
+      background-color: darkred;
+      transform: scale(1.05);
+    }
+    #visitSoftwareBtn {
+      display: none;
+      margin-top: 15px;
+    }
+    /* Mobile responsiveness */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .features {
+        text-align: left;
+        margin: 0 auto;
+        max-width: 400px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- Hero Section -->
   <section class="hero">
+    <!-- Left column: Images -->
     <div class="hero-images">
-      <img src="images/VidSpaceAI/vsai_hero_1.png" alt="VidSpace AI">
+      <img src="images/VidSpaceAI/vsa_1.jpg" alt="Hero Image 1">
+      <img src="images/VidSpaceAI/vsa_2.jpg" alt="Hero Image 2">
+      <img src="images/VidSpaceAI/vsa_3.jpg" alt="Hero Image 3">
     </div>
 
+    <!-- Right column: Content -->
     <div class="hero-content">
-      <h1>Host, Play & Market 4K HD Videos in 60 Seconds with VidSpace AI</h1>
-      <p>No Monthly Fees | Lightning-Fast | Commercial License Included</p>
+      <h1>Transform Your Visuals Instantly – Create Stunning 4K HD Images, Videos and AI Graphics in Just 60 Seconds!</h1>
+      <p>No Monthly Fee | No Designing Skills | No Experience Needed</p>
+
       <div class="features">
         <ul>
-          <li>4K & HDR Video Hosting</li>
-          <li>Ad-Free Playback</li>
-          <li>Customizable Video Player</li>
-          <li>Interactive CTAs & Opt-ins</li>
-          <li>Video SEO Optimization</li>
-          <li>Advanced Analytics</li>
-          <li>Privacy & Embedding Control</li>
-          <li>Playlists & Organization</li>
-          <li>Drag-n-Drop Editor</li>
-          <li>30 Days Money Back Guarantee</li>
+          <li>Generate AI Animated 4K Videos.</li>
+          <li>Generate AI 4K HD Images.</li>
+          <li>Generate AI Story Telling Images & Videos.</li>
+          <li>Generate AI Cartoon Videos.</li>
+          <li>Generate AI Logos & Graphics.</li>
+          <li>Generate AI Drawing & Images.</li>
+          <li>Generate AI Sketch Images.</li>
+          <li>Generate AI Characters.</li>
+          <li>Generate AI Instagram Script.</li>
+          <li>Generate AI Facebook Script.</li>
+          <li>Generate AI YouTube Script and More.</li>
         </ul>
       </div>
-      <a href="https://warriorplus.com/o2/a/j7lmmdp/0" class="btn">CLICK HERE TO GET ACCESS NOW</a>
+
+      <!-- Lead Capture Form -->
+      <div id="leadFormContainer">
+        <h3>Get Instant Access</h3>
+        <p id="leadText">Enter your details below to continue:</p>
+        <form id="leadForm" onsubmit="submitForm(event)">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <button type="submit">Submit</button>
+        </form>
+        <!-- Hidden CTA button (shows after form submit) -->
+        <a href="https://warriorplus.com/o2/a/j7lmmdp/0" id="visitSoftwareBtn" class="btn">CLICK HERE TO GET ACCESS NOW</a>
+      </div>
     </div>
   </section>
 
   <!-- Divider + Headline -->
   <div class="divider"></div>
-  <h3 class="headline">Ultimately, <span>Cancel Expensive Monthly Subscriptions</span> Once And For All.</h3>
+  <h3 class="headline">
+    Ultimately, <span>Cancel Expensive Monthly Subscriptions</span> And Once In For All.
+  </h3>
 
   <!-- Logos Grid -->
   <div class="logos">
-    <img src="images/VidSpaceAI/vsa_logo1.png" alt="Trusted Logo 1">
-    <img src="images/VidSpaceAI/vsa_logo2.png" alt="Trusted Logo 2">
-    <img src="images/VidSpaceAI/vsa_logo3.png" alt="Trusted Logo 3">
-    <img src="images/VidSpaceAI/vsa_logo4.png" alt="Trusted Logo 4">
-    <img src="images/VidSpaceAI/vsa_logo5.png" alt="Trusted Logo 5">
-    <img src="images/VidSpaceAI/vsa_logo6.png" alt="Trusted Logo 6">
-    <img src="images/VidSpaceAI/vsa_logo7.png" alt="Trusted Logo 7">
-    <img src="images/VidSpaceAI/vsa_logo8.png" alt="Trusted Logo 8">
+    <img src="images/VidSpaceAI/vsa_4.jpg" alt="Logo 1">
+    <img src="images/VidSpaceAI/vsa_5.jpg" alt="Logo 2">
+    <img src="images/VidSpaceAI/vsa_6.jpg" alt="Logo 3">
+    <img src="images/VidSpaceAI/vsa_7.jpg" alt="Logo 4">
+    <img src="images/VidSpaceAI/vsa_8.jpg" alt="Logo 5">
+    <img src="images/VidSpaceAI/vsa_9.jpg" alt="Logo 6">
   </div>
 
-  <!-- Lead Capture Form -->
-  <div id="leadFormContainer">
-    <h3>Join Here</h3>
-    <p id="leadText">Enter your name & email to get started:</p>
-    <form id="leadForm" onsubmit="submitForm(event)">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <button type="submit">Submit</button>
-    </form>
-    <a href="https://warriorplus.com/o2/a/j7lmmdp/0" id="visitSoftwareBtn">Visit Software Page</a>
-  </div>
-
-  <!-- Final CTA -->
-  <div class="cta">
+  <!-- Final CTA centered -->
+  <div class="cta" style="text-align:center;">
     <a href="https://warriorplus.com/o2/a/j7lmmdp/0" class="btn">CLICK HERE TO GET ACCESS NOW</a>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const leadForm = document.getElementById('leadForm');
-      const leadText = document.getElementById('leadText');
-      const visitBtn = document.getElementById('visitSoftwareBtn');
+<script>
+// Handle form + redirect logic
+document.addEventListener("DOMContentLoaded", () => {
+  const leadForm = document.getElementById('leadForm');
+  const leadText = document.getElementById('leadText');
+  const visitBtn = document.getElementById('visitSoftwareBtn');
 
-      if(sessionStorage.getItem('formSubmitted') === 'true'){
-          leadForm.style.display = "none";
-          leadText.innerText = "Thanks for subscribing!";
-          visitBtn.style.display = "inline-block";
-      } else {
-          leadForm.style.display = "block";
-          leadForm.reset();
-          leadText.innerText = "Enter your name & email to get started:";
-          visitBtn.style.display = "none";
-      }
-    });
+  if(sessionStorage.getItem('formSubmitted') === 'true'){
+    leadForm.style.display = "none";
+    leadText.innerText = "Thanks for subscribing!";
+    visitBtn.style.display = "inline-block";
+  }
+});
 
-    function submitForm(e){
-      e.preventDefault();
-      const name = document.querySelector('input[name="name"]').value;
-      const email = document.querySelector('input[name="email"]').value;
+function submitForm(e){
+  e.preventDefault();
+  const name = document.querySelector('input[name="name"]').value;
+  const email = document.querySelector('input[name="email"]').value;
 
-      const leadForm = document.getElementById('leadForm');
-      const leadText = document.getElementById('leadText');
-      const visitBtn = document.getElementById('visitSoftwareBtn');
+  const leadForm = document.getElementById('leadForm');
+  const leadText = document.getElementById('leadText');
+  const visitBtn = document.getElementById('visitSoftwareBtn');
 
-      leadForm.style.display = 'none';
-      leadText.innerText = "Thanks for subscribing!";
-      visitBtn.style.display = "inline-block";
+  leadForm.style.display = 'none';
+  leadText.innerText = "Thanks for subscribing!";
+  visitBtn.style.display = "inline-block";
 
-      // Send to Google Forms silently (same as index.html)
-      const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
-      fetch(prefillURL, {mode:'no-cors'});
+  // Google Forms silent submit
+  const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
+  fetch(prefillURL, {mode:'no-cors'});
 
-      sessionStorage.setItem('formSubmitted', 'true');
-    }
-  </script>
+  sessionStorage.setItem('formSubmitted', 'true');
+}
+</script>
 
 </body>
 </html>
