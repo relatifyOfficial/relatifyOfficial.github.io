@@ -17,7 +17,6 @@
         position: relative;
     }
 
-    /* Kid-friendly doodles */
     body::before, body::after {
         content: '';
         position: absolute;
@@ -82,127 +81,52 @@
         margin-bottom: 10px;
     }
 
-    h3 {
-        color: #00BFA5;
-        font-size: 1.5rem;
-        margin-bottom: 30px;
+    /* Lead Form Styling */
+    #leadFormContainer {
+        background-color: #2A2A3A;
+        border-radius: 15px;
+        padding: 20px;
+        width: 90%;
+        max-width: 400px;
+        margin: 30px auto 0 auto;
+        box-shadow: 0 0 15px rgba(0,191,165,0.5);
+        transition: all 0.3s ease;
     }
 
-    .dropdown {
-        position: relative;
-        display: inline-block;
-        margin-top: 20px;
+    input[type=text], input[type=email] {
+        padding: 12px;
+        width: 80%;
+        margin: 10px auto;
+        border-radius: 8px;
+        border: none;
+        display: block;
+        background-color: #1E1E2F;
+        color: #fff;
+        font-size: 1rem;
     }
 
-    .dropbtn {
+    input::placeholder { color: #bbb; }
+
+    button {
         background-color: #00BFA5;
-        color: white;
-        padding: 15px 30px;
-        font-size: 1.2rem;
+        color: #fff;
+        padding: 12px 25px;
         border: none;
         border-radius: 10px;
-        cursor: pointer;
-        transition: background 0.3s;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .dropbtn:hover {
-        background-color: #26A69A;
-    }
-
-    .arrow {
-        display: inline-block;
-        transition: transform 0.3s ease;
-    }
-
-    .arrow.rotate {
-        transform: rotate(180deg);
-    }
-
-    .dropdown-content {
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        transition: max-height 0.6s ease, opacity 0.6s ease, padding 0.3s ease;
-        background-color: #1E1E2F;
-        border-radius: 15px;
-        min-width: 240px;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
-        z-index: 1;
-        margin-top: 10px;
-        text-align: left;
-        padding: 0 0;
-    }
-
-    .dropdown-content.show {
-        max-height: 600px;
-        opacity: 1;
-        padding: 10px 0;
-    }
-
-    .accordion-item {
-        border-bottom: 1px solid #333;
-    }
-
-    .accordion-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 16px;
-        cursor: pointer;
         font-size: 1.1rem;
-        color: #fff;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: background-color 0.3s, transform 0.3s;
     }
 
-    .accordion-header:hover {
-        background-color: #00BFA5;
-        border-radius: 10px;
+    button:hover {
+        background-color: #26A69A;
+        transform: scale(1.05);
     }
 
-    .accordion-arrow {
-        transition: transform 0.3s ease;
-    }
-
-    .accordion-arrow.rotate {
-        transform: rotate(180deg);
-    }
-
-    .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.3s ease;
-        padding-left: 20px;
-    }
-
-    .accordion-content.show {
-        max-height: 200px;
-        opacity: 1;
-        padding: 10px 20px;
-    }
-
-    /* Sub-links cascade animation */
-    .accordion-content a {
-        display: block;
-        padding: 8px 0;
-        color: #ccc;
-        text-decoration: none;
-        transform: translateY(10px);
-        opacity: 0;
-        transition: transform 0.4s ease, opacity 0.4s ease;
-    }
-
-    .accordion-content.show a {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .accordion-content.show a:nth-child(1) { transition-delay: 0.1s; }
-
-    .accordion-content a:hover {
-        color: #FFD600;
+    #leadText {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
     }
 
     footer {
@@ -223,73 +147,16 @@
 
 <main>
     <h2>Because life's little struggles deserve a little fix ✨</h2>
-    <h3>Choose a Category</h3>
 
-    <div class="dropdown">
-        <button onclick="toggleDropdown()" class="dropbtn">
-            Categories <span id="arrow" class="arrow">▼</span>
-        </button>
-        <div id="dropdownMenu" class="dropdown-content">
-            
-            <!-- Kids -->
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    👶 Kids <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <a href="kids.html">🧸 Toys</a>
-                    <a href="kids.html">📖 Stories</a>
-                    <a href="kids.html">🎓 Learning</a>
-                </div>
-            </div>
-
-            <!-- Software (Below Kids) -->
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    💻 Software <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <a href="software.html">🤖 AI Apps</a>
-                </div>
-            </div>
-
-            <!-- Teens -->
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    🧑 Teens <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <a href="teens.html">🎮 Games</a>
-                    <a href="teens.html">📘 Guides</a>
-                    <a href="teens.html">📚 Study</a>
-                </div>
-            </div>
-
-            <!-- Adults -->
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    👨 Adults <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <a href="adults.html">💼 Work</a>
-                    <a href="adults.html">💪 Health</a>
-                    <a href="adults.html">💰 Finance</a>
-                </div>
-            </div>
-
-            <!-- Seniors -->
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    👵 Seniors <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <a href="seniors.html">🧘 Wellness</a>
-                    <a href="seniors.html">📖 Stories</a>
-                    <a href="seniors.html">🤝 Community</a>
-                </div>
-            </div>
-
-        </div>
+    <!-- Lead Capture Form -->
+    <div id="leadFormContainer">
+        <h3>Join here</h3>
+        <p id="leadText">Enter your name & email to get started:</p>
+        <form id="leadForm" onsubmit="submitForm(event)">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </main>
 
@@ -304,42 +171,24 @@
 <div class="doodle-star" style="top:150px; right:100px; background:#00E5FF;"></div>
 
 <script>
-function toggleDropdown() {
-    const menu = document.getElementById("dropdownMenu");
-    const arrow = document.getElementById("arrow");
-    menu.classList.toggle("show");
-    arrow.classList.toggle("rotate");
-}
+function submitForm(e){
+    e.preventDefault();
 
-// Accordion behavior
-function toggleAccordion(header) {
-    const allContents = document.querySelectorAll(".accordion-content");
-    const allArrows = document.querySelectorAll(".accordion-arrow");
+    const name = document.querySelector('input[name="name"]').value;
+    const email = document.querySelector('input[name="email"]').value;
 
-    // close all
-    allContents.forEach(c => c.classList.remove("show"));
-    allArrows.forEach(a => a.classList.remove("rotate"));
+    // Hide the form
+    document.getElementById('leadForm').style.display = 'none';
+    document.getElementById('leadText').innerText = "Thank you! Redirecting...";
 
-    // open the one clicked
-    const content = header.nextElementSibling;
-    const arrow = header.querySelector(".accordion-arrow");
+    // Optional: If you still want to log to Google Forms silently
+    const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
+    fetch(prefillURL, {mode:'no-cors'});
 
-    if (!content.classList.contains("show")) {
-        content.classList.add("show");
-        arrow.classList.add("rotate");
-    }
-}
-
-// Close dropdown if user clicks outside
-window.onclick = function(event) {
-  if (!event.target.closest('.dropbtn') && !event.target.closest('.accordion-header')) {
-    let menu = document.getElementById("dropdownMenu");
-    let arrow = document.getElementById("arrow");
-    if (menu.classList.contains('show')) {
-      menu.classList.remove('show');
-      arrow.classList.remove('rotate');
-    }
-  }
+    // Redirect after a short delay
+    setTimeout(() => {
+        window.location.href = "software.html";
+    }, 1200);
 }
 </script>
 
