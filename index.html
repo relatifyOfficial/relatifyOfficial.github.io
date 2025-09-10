@@ -78,7 +78,7 @@
         margin: 0 auto 10px auto;
         border: 3px solid #FFD600;
         background-color: #fff;
-        animation: popBounce 1s ease; /* run on page load */
+        animation: popBounce 1s ease; /* runs on page load */
         cursor: pointer;
     }
 
@@ -90,7 +90,7 @@
 
     @keyframes popBounce {
         0% { transform: scale(1); }
-        30% { transform: scale(1.4); }  /* jump toward viewer */
+        30% { transform: scale(1.4); }  /* pop toward viewer */
         50% { transform: scale(1); }
         70% { transform: scale(1.2); }  /* small rebound */
         100% { transform: scale(1); }
@@ -206,17 +206,24 @@
 <div class="doodle-star" style="top:150px; right:100px; background:#00E5FF;"></div>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Always show the lead form when page loads or user comes back
+    document.getElementById('leadFormContainer').style.display = "block";
+    document.getElementById('leadForm').style.display = "block";
+    document.getElementById('leadText').innerText = "Enter your name & email to get started:";
+});
+
 function submitForm(e){
     e.preventDefault();
 
     const name = document.querySelector('input[name="name"]').value;
     const email = document.querySelector('input[name="email"]').value;
 
-    // Hide the form
+    // Hide the form after submission
     document.getElementById('leadForm').style.display = 'none';
     document.getElementById('leadText').innerText = "Thank you! Redirecting...";
 
-    // Optional: If you still want to log to Google Forms silently
+    // Optional: log to Google Forms silently
     const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
     fetch(prefillURL, {mode:'no-cors'});
 
