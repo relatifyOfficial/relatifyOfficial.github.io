@@ -82,7 +82,8 @@ const searchInput = document.getElementById('searchInput');
 const categoryTagsDiv = document.getElementById('categoryTags');
 let products = [];
 let categories = [];
-let selectedCategories = [];
+let searchMode = false;
+let categoryMode = false;
 
 // Fetch products and categories
 async function loadData() {
@@ -94,7 +95,7 @@ async function loadData() {
     categories = await resCategories.json();
 
     renderCategoryTags();
-    renderProducts(products, '', []);
+    renderGrid(products);
   } catch (err) {
     console.error('Failed to load data', err);
     noResults.textContent = "Failed to load products";
@@ -108,9 +109,10 @@ function renderCategoryTags() {
   clearBtn.textContent = "Clear All";
   clearBtn.classList.add('clear-all');
   clearBtn.addEventListener('click', () => {
-    selectedCategories = [];
+    categoryMode = false;
+    searchMode = false;
     categoryTagsDiv.querySelectorAll('button.selected').forEach(b => b.classList.remove('selected'));
-    renderProducts(products, searchInput.value.toLowerCase(), selectedCategories);
+    renderGrid(products);
   });
   categoryTagsDiv.appendChild(clearBtn);
 
@@ -120,53 +122,67 @@ function renderCategoryTags() {
     btn.dataset.id = cat.id;
     btn.addEventListener('click', () => {
       btn.classList.toggle('selected');
-      selectedCategories = Array.from(categoryTagsDiv.querySelectorAll('button.selected'))
-                               .filter(b => !b.classList.contains('clear-all'))
-                               .map(b => b.dataset.id);
-      renderProducts(products, searchInput.value.toLowerCase(), selectedCategories);
+      const selectedCats = Array.from(categoryTagsDiv.querySelectorAll('button.selected'))
+                                .filter(b => !b.classList.contains('clear-all'))
+                                .map(b => b.dataset.id);
+      if(selectedCats.length > 0){
+        categoryMode = true;
+        searchMode = false;
+        renderProductsByCategory(selectedCats);
+      } else {
+        categoryMode = false;
+        renderGrid(products);
+      }
     });
     categoryTagsDiv.appendChild(btn);
   });
 }
 
-// Highlight search
-function highlight(text, query) {
-  if(!query) return text;
-  const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
-  return text.replace(regex, '<mark>$1</mark>');
+// Search input listener
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+  if(query){
+    searchMode = true;
+    categoryMode = false;
+    renderProductsBySearch(query);
+  } else {
+    searchMode = false;
+    renderGrid(products);
+  }
+});
+
+// Render functions
+function renderProductsBySearch(query){
+  const filtered = products.filter(p => 
+    p.name.toLowerCase().includes(query) || 
+    p.description.toLowerCase().includes(query)
+  );
+  renderGrid(filtered, query);
 }
 
-// Render products
-function renderProducts(allProducts, query, selectedCats) {
-  let filtered = allProducts;
+function renderProductsByCategory(selectedCats){
+  const allowed = new Set();
+  selectedCats.forEach(catId => {
+    const cat = categories.find(c => c.id === catId);
+    if(cat) cat.products.forEach(p => allowed.add(p.name));
+  });
+  const filtered = products.filter(p => allowed.has(p.name));
+  renderGrid(filtered);
+}
 
-  if(selectedCats.length > 0) {
-    const allowed = new Set();
-    selectedCats.forEach(catId => {
-      const cat = categories.find(c => c.id === catId);
-      if(cat) cat.products.forEach(p => allowed.add(p));
-    });
-    filtered = filtered.filter(p => allowed.has(p.name));
-  }
-
-  if(query) {
-    filtered = filtered.filter(p => 
-      p.name.toLowerCase().includes(query) || 
-      p.description.toLowerCase().includes(query)
-    );
-  }
-
+// Grid renderer
+function renderGrid(filtered, query=''){
   const existingCards = Array.from(grid.children);
   existingCards.forEach(card => {
     const name = card.querySelector('h3').textContent.replace(/<[^>]+>/g,'');
-    if(!filtered.some(p => p.name === name)) {
+    if(!filtered.some(p => p.name === name)){
       card.classList.remove('visible');
       setTimeout(() => card.remove(), 300);
     }
   });
 
   filtered.forEach(product => {
-    if(!existingCards.some(card => card.querySelector('h3').textContent.replace(/<[^>]+>/g,'') === product.name)) {
+    if(!existingCards.some(card => card.querySelector('h3').textContent.replace(/<[^>]+>/g,'') === product.name)){
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
@@ -184,10 +200,12 @@ function renderProducts(allProducts, query, selectedCats) {
   if(filtered.length === 0) noResults.classList.add('visible'); else noResults.classList.remove('visible');
 }
 
-// Event listener for search
-searchInput.addEventListener('input', () => {
-  renderProducts(products, searchInput.value.toLowerCase(), selectedCategories);
-});
+// Highlight for search
+function highlight(text, query){
+  if(!query) return text;
+  const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+  return text.replace(regex, '<mark>$1</mark>');
+}
 
 // Initialize
 loadData();
