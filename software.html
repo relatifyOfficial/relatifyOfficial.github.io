@@ -6,43 +6,147 @@
 <title>Relatify - Software</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap" rel="stylesheet">
 <style>
-body { font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif; background:#121212; color:#fff; text-align:center; margin:0; padding:0; }
-header { background:#1A237E; padding:20px; font-size:2rem; font-weight:bold; color:#fff; position: sticky; top: 0; z-index: 1000; }
-main { padding:15px; display:flex; flex-direction:column; align-items:center; }
-h2 { color:#FFD600; font-size:1.8rem; margin-bottom:15px; }
-.search-box { width:100%; display:flex; justify-content:center; position: sticky; top: 60px; background:#121212; padding: 8px 0; z-index: 999; margin-bottom:10px; }
-.search-box input { padding: 10px 12px; border-radius: 10px; border: none; width:90%; max-width:320px; font-size:1rem; background:#fff; color:#000; box-shadow:0 2px 5px rgba(0,0,0,0.3); }
-.search-box input::placeholder { color:#888; }
-.category-tags { display:flex; flex-wrap: wrap; justify-content:center; align-items:center; margin-bottom:10px; position: sticky; top: 110px; z-index: 998; background:#121212; padding:8px 0; }
-.category-tags button { background:#1E1E1E; color:#fff; border:none; padding:7px 12px; margin:4px; border-radius:20px; cursor:pointer; font-size:0.9rem; transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.2s; }
-.category-tags button.selected { background:#00BFA5; color:#fff; }
-.category-tags button.clear-all { background:#FFD600; color:#000; }
-@media (hover: hover) and (pointer: fine) {
-  .category-tags button:hover:not(.selected):not(.clear-all) { transform: scale(1.08); box-shadow: 0 0 10px #00BFA5; }
-  .category-tags button.clear-all:hover { transform: scale(1.05); box-shadow: 0 0 10px #FFD600; }
+body {
+    font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif;
+    background: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
 }
-@media (hover: none) and (pointer: coarse) { .category-tags button:active { transform: scale(0.95); } }
-.grid-container { width:100%; max-width:1000px; margin-top:15px; position:relative; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap:20px; justify-items:center; }
-@media(max-width:900px){ .grid { grid-template-columns: repeat(2,1fr); gap:15px; } }
-@media(max-width:600px){ .grid { grid-template-columns: 1fr; gap:12px; } }
-.card { background:#1E1E1E; padding:15px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.5); width:100%; max-width:250px; text-align:center; opacity:0; transform: translateY(15px); transition: opacity 0.3s ease, transform 0.3s ease; }
-.card.visible { opacity:1; transform: translateY(0); }
-.card img { width:100%; border-radius:10px; margin-bottom:12px; }
-.card h3 { color:#00BFA5; font-size:1.2rem; margin-bottom:8px; }
-.card p { font-size:0.9rem; color:#ccc; margin-bottom:12px; }
-.card a { background:#00BFA5; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-size:0.95rem; display:inline-block; transition:background 0.3s; }
+header {
+    background:#1A237E;
+    padding:20px;
+    font-size:2rem;
+    font-weight:bold;
+    color:#fff;
+    position: sticky;
+    top:0;
+    z-index:1000;
+    text-align:center;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    gap: 20px;
+}
+.sidebar {
+    width: 200px;
+    min-width: 180px;
+    background: #1E1E1E;
+    border-radius: 12px;
+    padding: 20px;
+    height: fit-content;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease-in-out;
+}
+.sidebar h3 {
+    color:#FFD600;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+.sidebar button {
+    width:100%;
+    background:#2A2A3A;
+    color:#fff;
+    border:none;
+    padding: 12px;
+    margin-bottom:10px;
+    border-radius:8px;
+    cursor:pointer;
+    text-align:left;
+    font-size:0.95rem;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+.sidebar button.selected {
+    background:#00BFA5;
+    color:#fff;
+    box-shadow: 0 0 8px #00BFA5;
+}
+.sidebar button.clear-all {
+    background:#FFD600;
+    color:#000;
+}
+.sidebar button:hover:not(.selected):not(.clear-all) {
+    transform: scale(1.03);
+    box-shadow: 0 0 5px #00BFA5;
+}
+.sidebar button.clear-all:hover { transform: scale(1.03); box-shadow: 0 0 5px #FFD600; }
+
+.search-box {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.search-box input {
+    width: 100%;
+    max-width: 450px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: none;
+    font-size:1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+}
+.grid-container {
+    width:100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap:25px;
+}
+.card {
+    background:#1E1E1E;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.5);
+    text-align:center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow:0 6px 20px rgba(0,191,165,0.5);
+}
+.card img { width:100%; border-radius:10px; margin-bottom:15px; }
+.card h3 { color:#00BFA5; font-size:1.25rem; margin-bottom:10px; }
+.card p { font-size:0.95rem; color:#ccc; margin-bottom:15px; }
+.card a { background:#00BFA5; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; font-size:0.95rem; display:inline-block; transition:background 0.3s; }
 .card a:hover { background:#26A69A; }
-mark { background: #FFD600; color:#000; padding:0 2px; border-radius:2px; }
-.no-results { opacity:0; transition: opacity 0.3s ease; color:#FFD600; font-size:1.3rem; margin-top:15px; text-align:center; }
-.no-results.visible { opacity:1; }
-.match-count { font-size:1.1rem; color:#FFD600; margin:5px 0; }
-footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-size:0.9rem; }
-@media(max-width:400px){
-  header { font-size:1.6rem; padding:15px; }
-  .search-box input { font-size:0.95rem; padding:8px 10px; }
-  .category-tags button { font-size:0.85rem; padding:6px 10px; margin:3px; }
-  .card a { font-size:0.9rem; padding:6px 15px; }
+mark { background:#FFD600; color:#000; border-radius:2px; padding:0 2px; }
+.no-results { color:#FFD600; font-size:1.3rem; margin-top:15px; text-align:center; display:none; }
+footer { margin-top:30px; padding:15px; background:#1A237E; color:#fff; font-size:0.9rem; text-align:center; }
+
+/* Mobile adjustments */
+@media(max-width:768px) {
+    .container { flex-direction: column; }
+    .sidebar {
+        position: fixed;
+        top:0;
+        left:-250px;
+        height: 100%;
+        z-index: 1001;
+        transform: translateX(-250px);
+        padding: 25px;
+        overflow-y: auto;
+    }
+    .sidebar.active { transform: translateX(0); }
+    .overlay {
+        position: fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background: rgba(0,0,0,0.6);
+        z-index:1000;
+        display:none;
+    }
+    .overlay.active { display:block; }
+    .toggle-btn {
+        display:block;
+        background:#00BFA5;
+        color:#fff;
+        border:none;
+        padding:10px 15px;
+        border-radius:8px;
+        font-size:1rem;
+        cursor:pointer;
+        margin-bottom:15px;
+    }
 }
 </style>
 </head>
@@ -50,149 +154,159 @@ footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-siz
 
 <header>Relatify</header>
 
-<main>
-  <h2>💻 Softwares</h2>
+<!-- Overlay for mobile sidebar -->
+<div class="overlay" id="overlay"></div>
 
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search for software...">
-  </div>
+<div class="container">
+    <div class="sidebar" id="sidebar">
+        <h3>Categories</h3>
+        <div id="categoryTags"></div>
+    </div>
 
-  <div class="category-tags" id="categoryTags"></div>
+    <main>
+        <!-- Mobile toggle button -->
+        <button class="toggle-btn" id="toggleBtn">Categories</button>
 
-  <div class="grid-container">
-    <h3>Search Results</h3>
-    <div class="match-count" id="searchMatchCount"></div>
-    <div class="grid" id="searchGrid"></div>
-    <div class="no-results" id="searchNoResults">No search results found</div>
-
-    <h3>Category Results</h3>
-    <div class="match-count" id="categoryMatchCount"></div>
-    <div class="grid" id="categoryGrid"></div>
-    <div class="no-results" id="categoryNoResults">No products in this category</div>
-  </div>
-</main>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search for software...">
+        </div>
+        <div class="grid-container" id="productGrid"></div>
+        <div class="no-results" id="noResults">No products found</div>
+    </main>
+</div>
 
 <footer>&copy; 2025 Relatify</footer>
 
 <script>
-// Silent redirect if not subscribed
+// Redirect if not subscribed
 if(sessionStorage.getItem('formSubmitted') !== 'true'){
     window.location.href = "index.html";
 }
 
-const searchGrid = document.getElementById('searchGrid');
-const searchNoResults = document.getElementById('searchNoResults');
-const searchMatchCount = document.getElementById('searchMatchCount');
-
-const categoryGrid = document.getElementById('categoryGrid');
-const categoryNoResults = document.getElementById('categoryNoResults');
-const categoryMatchCount = document.getElementById('categoryMatchCount');
-
+const grid = document.getElementById('productGrid');
+const noResults = document.getElementById('noResults');
 const searchInput = document.getElementById('searchInput');
 const categoryTagsDiv = document.getElementById('categoryTags');
-
 let products = [];
 let categories = [];
 let selectedCategories = [];
 
+// Mobile sidebar
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const toggleBtn = document.getElementById('toggleBtn');
+
+toggleBtn.addEventListener('click', () => {
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
+});
+overlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+});
+
 // Fetch products and categories
 async function loadData() {
-  try {
-    const resProducts = await fetch('products.json');
-    products = await resProducts.json();
+    try {
+        const resProducts = await fetch('products.json');
+        products = await resProducts.json();
 
-    const resCategories = await fetch('category.json');
-    categories = await resCategories.json();
+        const resCategories = await fetch('category.json');
+        categories = await resCategories.json();
 
-    renderCategoryTags();
-    renderGrid(searchGrid, searchNoResults, searchMatchCount, []);
-    renderGrid(categoryGrid, categoryNoResults, categoryMatchCount, []);
-  } catch (err) {
-    console.error('Failed to load data', err);
-    searchNoResults.textContent = "Failed to load products";
-    searchNoResults.classList.add('visible');
-  }
+        renderCategoryTags();
+        renderProducts(products);
+    } catch (err) {
+        console.error('Failed to load data', err);
+        noResults.textContent = "Failed to load products";
+        noResults.style.display = "block";
+    }
 }
 
-// Render category tags with Clear All
+// Render category buttons
 function renderCategoryTags() {
-  const clearBtn = document.createElement('button');
-  clearBtn.textContent = "Clear All";
-  clearBtn.classList.add('clear-all');
-  clearBtn.addEventListener('click', () => {
-    selectedCategories = [];
-    categoryTagsDiv.querySelectorAll('button.selected').forEach(b => b.classList.remove('selected'));
-    renderGrid(categoryGrid, categoryNoResults, categoryMatchCount, []);
-  });
-  categoryTagsDiv.appendChild(clearBtn);
+    const clearBtn = document.createElement('button');
+    clearBtn.textContent = "Clear All";
+    clearBtn.classList.add('clear-all');
+    clearBtn.addEventListener('click', () => {
+        selectedCategories = [];
+        categoryTagsDiv.querySelectorAll('button.selected').forEach(b => b.classList.remove('selected'));
+        renderProducts(products);
+    });
+    categoryTagsDiv.appendChild(clearBtn);
 
-  categories.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.textContent = cat.name;
-    btn.dataset.id = cat.id;
-    btn.addEventListener('click', () => {
-      btn.classList.toggle('selected');
-      selectedCategories = Array.from(categoryTagsDiv.querySelectorAll('button.selected'))
-                               .filter(b => !b.classList.contains('clear-all'))
-                               .map(b => b.dataset.id);
-      if(selectedCategories.length > 0){
+    categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.textContent = cat.name;
+        btn.dataset.id = cat.id;
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('selected');
+            selectedCategories = Array.from(categoryTagsDiv.querySelectorAll('button.selected'))
+                .filter(b => !b.classList.contains('clear-all'))
+                .map(b => b.dataset.id);
+            renderProducts(products);
+        });
+        categoryTagsDiv.appendChild(btn);
+    });
+}
+
+// Highlight search
+function highlight(text, query) {
+    if(!query) return text;
+    const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&')})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Render products
+function renderProducts(productList) {
+    const query = searchInput.value.toLowerCase();
+
+    let filteredByCategory = productList;
+    if(selectedCategories.length > 0){
         const allowed = new Set();
         selectedCategories.forEach(catId => {
-          const cat = categories.find(c => c.id === catId);
-          if(cat) cat.products.forEach(p => allowed.add(p.name));
+            const cat = categories.find(c => c.id === catId);
+            if(cat) cat.products.forEach(p => allowed.add(p.name));
         });
-        renderGrid(categoryGrid, categoryNoResults, categoryMatchCount, products.filter(p => allowed.has(p.name)));
-      } else {
-        renderGrid(categoryGrid, categoryNoResults, categoryMatchCount, []);
-      }
+        filteredByCategory = productList.filter(p => allowed.has(p.name));
+    }
+
+    let filteredBySearch = productList;
+    if(query) {
+        filteredBySearch = productList.filter(p =>
+            p.name.toLowerCase().includes(query) ||
+            p.description.toLowerCase().includes(query)
+        );
+    }
+
+    // Determine which list to show
+    let finalList = query ? filteredBySearch :
+                    (selectedCategories.length > 0 ? filteredByCategory : productList);
+
+    grid.innerHTML = '';
+
+    if(finalList.length === 0){
+        noResults.style.display = "block";
+        return;
+    } else {
+        noResults.style.display = "none";
+    }
+
+    finalList.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="${product.img}" alt="${product.name}">
+            <h3>${highlight(product.name, query)}</h3>
+            <p>${highlight(product.description, query)}</p>
+            <a href="${product.link}" target="_blank" rel="noopener noreferrer">Get Here</a>
+        `;
+        grid.appendChild(card);
     });
-    categoryTagsDiv.appendChild(btn);
-  });
 }
 
-// Highlight function
-function highlight(text, query) {
-  if(!query) return text;
-  const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
-  return text.replace(regex, '<mark>$1</mark>');
-}
-
-// Generic grid renderer with match count
-function renderGrid(gridElement, noResultsElement, matchCountElement, items, highlightQuery=''){
-  gridElement.innerHTML = '';
-  if(items.length === 0){
-    noResultsElement.classList.add('visible');
-    matchCountElement.textContent = '';
-    return;
-  } else {
-    noResultsElement.classList.remove('visible');
-    matchCountElement.textContent = `${items.length} product${items.length>1?'s':''} found`;
-  }
-  
-  items.forEach(product => {
-    const card = document.createElement('div');
-    card.className = 'card visible';
-    card.innerHTML = `
-      <img src="${product.img}" alt="${product.name}">
-      <h3>${highlight(product.name, highlightQuery)}</h3>
-      <p>${highlight(product.description, highlightQuery)}</p>
-      <a href="${product.link}" target="_blank" rel="noopener noreferrer">Get Here</a>
-    `;
-    gridElement.appendChild(card);
-  });
-}
-
-// Search listener
-searchInput.addEventListener('input', () => {
-  const query = searchInput.value.toLowerCase();
-  if(query){
-    renderGrid(searchGrid, searchNoResults, searchMatchCount, products.filter(p =>
-      p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
-    ), query);
-  } else {
-    renderGrid(searchGrid, searchNoResults, searchMatchCount, []);
-  }
-});
+// Event listener for search
+searchInput.addEventListener('input', () => renderProducts(products));
 
 // Initialize
 loadData();
