@@ -6,32 +6,24 @@
 <title>Relatify - Software</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap" rel="stylesheet">
 <style>
-body { font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif; background:#121212; color:#fff; text-align:center; margin:0; padding:0; }
-header { background:#1A237E; padding:20px; font-size:2rem; font-weight:bold; color:#fff; position: sticky; top: 0; z-index: 1000; display:flex; justify-content:space-between; align-items:center; }
+body { font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif; background:#121212; color:#fff; margin:0; padding:0; }
+header { background:#1A237E; padding:20px; font-size:2rem; font-weight:bold; color:#fff; position: sticky; top:0; z-index: 1000; text-align:center; }
 main { padding:15px; display:flex; flex-direction:column; align-items:center; }
-h2 { color:#FFD600; font-size:1.8rem; margin-bottom:15px; }
-
-/* Search bar */
-.search-box { width:100%; display:flex; justify-content:center; position: sticky; top:60px; background:#121212; padding:8px 0; z-index:999; }
-.search-box input { padding:10px 12px; border-radius:10px; border:none; width:90%; max-width:320px; font-size:1rem; background:#fff; color:#000; box-shadow:0 2px 5px rgba(0,0,0,0.3); }
-.search-box input::placeholder { color:#888; }
-/* Autocomplete dropdown */
-.autocomplete-items { position:absolute; background:#1E1E1E; border:1px solid #333; z-index:1002; width:90%; max-width:320px; margin-top:0; border-radius:5px; overflow:hidden; }
-.autocomplete-item { padding:10px; cursor:pointer; color:#fff; text-align:left; border-bottom:1px solid #333; }
-.autocomplete-item:hover { background:#00BFA5; }
-
-/* Menu button */
-.menu-btn { font-size:1.5rem; cursor:pointer; user-select:none; }
-/* Side menu */
-.side-menu { position: fixed; top:0; left:-250px; width:250px; height:100%; background:#1E1E1E; color:#fff; padding-top:60px; transition:0.3s; z-index:1001; display:flex; flex-direction:column; }
-.side-menu button { background:none; color:#fff; border:none; padding:15px 20px; text-align:left; font-size:1rem; cursor:pointer; border-bottom:1px solid #333; }
-.side-menu button:hover { background:#00BFA5; }
-
-/* Grid */
-.grid-container { width:100%; max-width:1000px; margin-top:15px; position:relative; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap:20px; justify-items:center; }
-.card { background:#1E1E1E; padding:15px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.5); width:100%; max-width:250px; text-align:center; opacity:0; transform: translateY(15px); transition: opacity 0.3s ease, transform 0.3s ease; }
-.card.visible { opacity:1; transform: translateY(0); }
+h2 { color:#FFD600; font-size:1.8rem; margin-bottom:10px; }
+.search-container { position: sticky; top:0; background:#121212; z-index:999; width:100%; padding:10px 0; display:flex; flex-direction:column; align-items:center; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+#searchInput { padding:10px 12px; border-radius:10px; border:none; width:90%; max-width:320px; font-size:1rem; background:#fff; color:#000; position: relative; z-index: 1001; }
+#autocomplete-list { position: absolute; background:#1E1E1E; color:#fff; width:90%; max-width:320px; border-radius:0 0 10px 10px; max-height:200px; overflow-y:auto; box-shadow:0 2px 5px rgba(0,0,0,0.5); top: 42px; z-index:1000; }
+#autocomplete-list div { padding:8px 12px; cursor:pointer; }
+#autocomplete-list div:hover, #autocomplete-list .active { background:#00BFA5; }
+#matchCount { margin-top:8px; font-size:1.1rem; color:#FFD600; }
+#menuBtn { position: absolute; left:20px; top:25px; font-size:1.5rem; cursor:pointer; background:none; border:none; color:#fff; z-index:1001; }
+#sideMenu { position: fixed; left:-220px; top:0; width:200px; height:100%; background:#1E1E1E; overflow-y:auto; transition: left 0.3s ease; padding-top:60px; z-index:1000; }
+#sideMenu button { display:block; width:90%; margin:10px auto; padding:10px 12px; border:none; border-radius:10px; background:#00BFA5; color:#fff; cursor:pointer; text-align:left; font-size:1rem; }
+#sideMenu button:hover { background:#26A69A; }
+.grid-container { width:100%; max-width:1200px; margin-top:15px; position:relative; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:25px; justify-items:center; }
+.card { background:#1E1E1E; padding:20px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.5); width:100%; max-width:300px; text-align:center; opacity:0; transform:translateY(15px); transition: opacity 0.3s ease, transform 0.3s ease; }
+.card.visible { opacity:1; transform:translateY(0); }
 .card img { width:100%; border-radius:10px; margin-bottom:12px; }
 .card h3 { color:#00BFA5; font-size:1.2rem; margin-bottom:8px; }
 .card p { font-size:0.9rem; color:#ccc; margin-bottom:12px; }
@@ -41,33 +33,27 @@ mark { background: #FFD600; color:#000; padding:0 2px; border-radius:2px; }
 .no-results { opacity:0; transition: opacity 0.3s ease; color:#FFD600; font-size:1.3rem; margin-top:15px; text-align:center; }
 .no-results.visible { opacity:1; }
 footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-size:0.9rem; }
-
-@media(max-width:400px){
-  header { font-size:1.6rem; padding:15px; }
-  .search-box input { font-size:0.95rem; padding:8px 10px; }
-  .card a { font-size:0.9rem; padding:6px 15px; }
-}
+@media(max-width:1100px){ .grid { grid-template-columns: repeat(2,1fr); gap:20px; } }
+@media(max-width:700px){ .grid { grid-template-columns: repeat(3,1fr); gap:15px; } }
+@media(max-width:500px){ .grid { grid-template-columns: repeat(3,1fr); gap:12px; } .card { max-width:90%; } }
 </style>
 </head>
 <body>
 
 <header>
   Relatify
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <button id="menuBtn">&#9776;</button>
 </header>
 
-<div class="side-menu" id="sideMenu"></div>
+<div id="sideMenu"></div>
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search for software...">
+  <div id="autocomplete-list"></div>
+  <div id="matchCount"></div>
+</div>
 
 <main>
-  <h2>💻 Softwares</h2>
-
-  <div class="search-box" style="position:relative;">
-    <input type="text" id="searchInput" placeholder="Search for software..." autocomplete="off">
-    <div id="autocomplete-list" class="autocomplete-items"></div>
-  </div>
-
-  <div class="match-count" id="matchCount"></div>
-
   <div class="grid-container">
     <div class="grid" id="productGrid"></div>
     <div class="no-results" id="noResults">No products found</div>
@@ -77,140 +63,110 @@ footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-siz
 <footer>&copy; 2025 Relatify</footer>
 
 <script>
-// Silent redirect if not subscribed
-if(sessionStorage.getItem('formSubmitted') !== 'true'){
-    window.location.href = "index.html";
+if(sessionStorage.getItem('formSubmitted') !== 'true'){ window.location.href="index.html"; }
+
+const grid=document.getElementById('productGrid');
+const noResults=document.getElementById('noResults');
+const matchCount=document.getElementById('matchCount');
+const searchInput=document.getElementById('searchInput');
+const sideMenu=document.getElementById('sideMenu');
+const menuBtn=document.getElementById('menuBtn');
+const autocompleteList=document.getElementById('autocomplete-list');
+let products=[],categories=[],currentFocus=-1;
+
+// Toggle side menu
+menuBtn.addEventListener('click',()=>{ sideMenu.style.left=sideMenu.style.left==='0px'?'-220px':'0px'; });
+
+// Fetch data
+async function loadData(){
+    try{
+        const resProducts=await fetch('products.json'); products=await resProducts.json();
+        const resCategories=await fetch('category.json'); categories=await resCategories.json();
+        renderCategories(); renderProducts(products,'');
+    }catch(err){ console.error(err); noResults.textContent="Failed to load products"; noResults.classList.add('visible'); }
 }
 
-// Menu toggle
-function toggleMenu() {
-  const menu = document.getElementById('sideMenu');
-  menu.style.left = menu.style.left === "0px" ? "-250px" : "0px";
-}
-
-const grid = document.getElementById('productGrid');
-const noResults = document.getElementById('noResults');
-const matchCount = document.getElementById('matchCount');
-const searchInput = document.getElementById('searchInput');
-const sideMenu = document.getElementById('sideMenu');
-const autocompleteList = document.getElementById('autocomplete-list');
-
-let products = [];
-let categories = [];
-
-// Fetch products and categories
-async function loadData() {
-  try {
-    const resProducts = await fetch('products.json');
-    products = await resProducts.json();
-
-    const resCategories = await fetch('category.json');
-    categories = await resCategories.json();
-
-    renderMenuCategories();
-    renderProducts(products, '');
-  } catch (err) {
-    console.error('Failed to load data', err);
-    noResults.textContent = "Failed to load products";
-    noResults.classList.add('visible');
-  }
-}
-
-// Render categories in side menu
-function renderMenuCategories() {
-  categories.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.textContent = cat.name;
-    btn.dataset.id = cat.id;
-    btn.addEventListener('click', () => {
-      renderProductsByCategory(cat.id);
-      toggleMenu();
+// Render categories
+function renderCategories(){
+    categories.forEach(cat=>{
+        const btn=document.createElement('button');
+        btn.textContent=cat.name;
+        btn.addEventListener('click',()=>{
+            renderProducts(products,'',cat.id);
+            sideMenu.style.left='-220px';
+        });
+        sideMenu.appendChild(btn);
     });
-    sideMenu.appendChild(btn);
-  });
 }
 
-// Highlight search
-function highlight(text, query) {
-  if(!query) return text;
-  const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
-  return text.replace(regex, '<mark>$1</mark>');
+// Highlight text
+function highlight(text,query){ if(!query) return text; const regex=new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&')})`,'gi'); return text.replace(regex,'<mark>$1</mark>'); }
+
+// Render products
+function renderProducts(allProducts,query='',categoryId=''){
+    let filtered=allProducts;
+    if(categoryId){
+        const cat=categories.find(c=>c.id===categoryId);
+        if(cat) filtered=filtered.filter(p=>cat.products.includes(p.name));
+    } else if(query){
+        filtered=filtered.filter(p=>p.name.toLowerCase().includes(query.toLowerCase()) || p.description.toLowerCase().includes(query.toLowerCase()));
+    }
+
+    grid.innerHTML='';
+    if(filtered.length===0){ noResults.classList.add('visible'); matchCount.textContent='0 products found'; }
+    else{
+        noResults.classList.remove('visible');
+        matchCount.textContent=`${filtered.length} product${filtered.length>1?'s':''} found`;
+        filtered.forEach(product=>{
+            const card=document.createElement('div'); card.className='card';
+            card.innerHTML=`
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${highlight(product.name,query)}</h3>
+                <p>${highlight(product.description,query)}</p>
+                <a href="${product.link}" target="_blank" rel="noopener noreferrer">Get Here</a>
+            `;
+            grid.appendChild(card);
+            setTimeout(()=>card.classList.add('visible'),10);
+        });
+    }
 }
 
-// Render all products or search
-function renderProducts(allProducts, query) {
-  let filtered = allProducts;
-  if(query) {
-    filtered = filtered.filter(p => 
-      p.name.toLowerCase().includes(query) || 
-      p.description.toLowerCase().includes(query)
-    );
-  }
-  displayProducts(filtered, query);
-  renderAutocomplete(filtered, query);
-}
-
-// Render products by single category
-function renderProductsByCategory(catId) {
-  const cat = categories.find(c => c.id === catId);
-  if(!cat) return displayProducts([], '');
-  const filtered = products.filter(p => cat.products.includes(p.name));
-  displayProducts(filtered, '');
-}
-
-// Display product cards
-function displayProducts(filtered, query) {
-  grid.innerHTML = '';
-  if(filtered.length === 0) {
-    noResults.classList.add('visible');
-    matchCount.textContent = '';
-    return;
-  }
-  noResults.classList.remove('visible');
-  matchCount.textContent = `${filtered.length} product${filtered.length>1?'s':''} found`;
-
-  filtered.forEach(product => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <img src="${product.img}" alt="${product.name}">
-      <h3>${highlight(product.name, query)}</h3>
-      <p>${highlight(product.description, query)}</p>
-      <a href="${product.link}" target="_blank" rel="noopener noreferrer">Get Here</a>
-    `;
-    grid.appendChild(card);
-    setTimeout(() => card.classList.add('visible'), 10);
-  });
-}
-
-// Autocomplete dropdown
-function renderAutocomplete(filtered, query) {
-  autocompleteList.innerHTML = '';
-  if(!query) return;
-  filtered.forEach(product => {
-    const div = document.createElement('div');
-    div.className = 'autocomplete-item';
-    div.innerHTML = highlight(product.name, query);
-    div.addEventListener('click', () => {
-      searchInput.value = product.name;
-      renderProducts([product], product.name.toLowerCase());
-      autocompleteList.innerHTML = '';
+// Autocomplete & keyboard navigation
+function updateAutocomplete(){
+    const query=searchInput.value.toLowerCase();
+    autocompleteList.innerHTML=''; currentFocus=-1;
+    if(!query) return;
+    const matches=products.filter(p=>p.name.toLowerCase().includes(query));
+    matches.forEach(p=>{
+        const div=document.createElement('div');
+        div.innerHTML=highlight(p.name,query);
+        div.addEventListener('click',()=>{
+            searchInput.value=p.name; renderProducts(products,p.name); autocompleteList.innerHTML='';
+        });
+        autocompleteList.appendChild(div);
     });
-    autocompleteList.appendChild(div);
-  });
 }
 
-// Event listener for search
-searchInput.addEventListener('input', () => {
-  renderProducts(products, searchInput.value.toLowerCase());
+searchInput.addEventListener('input',()=>{ renderProducts(products,searchInput.value); updateAutocomplete(); });
+
+searchInput.addEventListener('keydown', e=>{
+    const items=autocompleteList.getElementsByTagName('div');
+    if(e.key==='ArrowDown'){ currentFocus++; addActive(items); e.preventDefault(); }
+    else if(e.key==='ArrowUp'){ currentFocus--; addActive(items); e.preventDefault(); }
+    else if(e.key==='Enter'){ e.preventDefault(); if(currentFocus>-1 && items[currentFocus]){ items[currentFocus].click(); } }
 });
 
-// Close autocomplete if clicking outside
-document.addEventListener('click', (e) => {
-  if(e.target !== searchInput) autocompleteList.innerHTML = '';
-});
+function addActive(items){
+    if(!items) return;
+    removeActive(items);
+    if(currentFocus>=items.length) currentFocus=0;
+    if(currentFocus<0) currentFocus=items.length-1;
+    items[currentFocus].classList.add('active');
+}
+function removeActive(items){ for(let i=0;i<items.length;i++) items[i].classList.remove('active'); }
 
-// Initialize
+document.addEventListener('click',e=>{ if(e.target!==searchInput) autocompleteList.innerHTML=''; });
+
 loadData();
 </script>
 
