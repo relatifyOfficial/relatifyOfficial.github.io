@@ -6,88 +6,66 @@
 <title>Relatify - Software</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap" rel="stylesheet">
 <style>
-body { 
-  font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif; 
-  background:#121212; 
-  color:#fff; 
-  text-align:center; 
-  margin:0; 
-  padding:0; 
-}
-header { 
-  background:#1A237E; 
-  padding:25px; 
-  font-size:2.5rem; 
-  font-weight:bold; 
-  color:#fff; 
-  position: sticky; 
-  top: 0; 
-  z-index: 1000;
-}
-main { 
-  padding:20px; 
-  display:flex; 
-  flex-direction:column; 
-  align-items:center; 
-}
-h2 { 
-  color:#FFD600; 
-  font-size:2rem; 
-  margin-bottom:20px; 
-}
+body { font-family: 'Baloo Bhai 2', Comic Sans MS, sans-serif; background:#121212; color:#fff; text-align:center; margin:0; padding:0; }
+header { background:#1A237E; padding:20px; font-size:2rem; font-weight:bold; color:#fff; position: sticky; top: 0; z-index: 1000; }
+main { padding:15px; display:flex; flex-direction:column; align-items:center; }
+h2 { color:#FFD600; font-size:1.8rem; margin-bottom:15px; }
 
-/* Sticky search box */
-.search-box { 
-  width:100%; 
-  display:flex; 
-  justify-content:center; 
-  position: sticky; 
-  top: 80px; 
-  background:#121212; 
-  padding: 10px 0;
-  z-index: 999;
-}
-.search-box input {
-  padding: 10px 15px;
-  border-radius: 10px;
-  border: none;
-  width:300px;
-  font-size:1rem;
-  background:#fff;
-  color:#000;
-  box-shadow:0 2px 5px rgba(0,0,0,0.3);
-}
+/* Sticky search */
+.search-box { width:100%; display:flex; justify-content:center; position: sticky; top: 60px; background:#121212; padding: 8px 0; z-index: 999; margin-bottom:10px; }
+.search-box input { padding: 10px 12px; border-radius: 10px; border: none; width:90%; max-width:320px; font-size:1rem; background:#fff; color:#000; box-shadow:0 2px 5px rgba(0,0,0,0.3); }
 .search-box input::placeholder { color:#888; }
 
-/* Grid */
-.grid-container { width:100%; max-width:1000px; margin-top:20px; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap:30px; justify-items:center; }
-@media(max-width:900px){ .grid { grid-template-columns: repeat(2,1fr); } }
-@media(max-width:600px){ .grid { grid-template-columns: 1fr; } }
+/* Tag-style categories */
+.category-tags { display:flex; flex-wrap: wrap; justify-content:center; align-items:center; margin-bottom:10px; position: sticky; top: 110px; z-index: 998; background:#121212; padding:8px 0; }
+.category-tags button { background:#1E1E1E; color:#fff; border:none; padding:7px 12px; margin:4px; border-radius:20px; cursor:pointer; font-size:0.9rem; transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.2s; }
+.category-tags button.selected { background:#00BFA5; color:#fff; }
+.category-tags button.clear-all { background:#FFD600; color:#000; }
+/* Hover effect for desktop */
+@media (hover: hover) and (pointer: fine) {
+  .category-tags button:hover:not(.selected):not(.clear-all) { transform: scale(1.08); box-shadow: 0 0 10px #00BFA5; }
+  .category-tags button.clear-all:hover { transform: scale(1.05); box-shadow: 0 0 10px #FFD600; }
+}
+/* Tap animation for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .category-tags button:active { transform: scale(0.95); }
+}
 
-/* Product cards with fade */
-.card { 
-  background:#1E1E1E; 
-  padding:20px; 
-  border-radius:15px; 
-  box-shadow:0 4px 10px rgba(0,0,0,0.5); 
-  width:250px; 
-  text-align:center; 
-  opacity:0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.card.visible { 
-  opacity:1; 
-  transform: translateY(0);
-}
-.card img { width:100%; border-radius:10px; margin-bottom:15px; }
-.card h3 { color:#00BFA5; font-size:1.3rem; margin-bottom:15px; }
-.card a { background:#00BFA5; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; font-size:1rem; display:inline-block; transition:background 0.3s; }
+/* Match count */
+.match-count { margin: 8px 0; font-size: 1.1rem; color: #FFD600; }
+
+/* Grid */
+.grid-container { width:100%; max-width:1000px; margin-top:15px; position:relative; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap:20px; justify-items:center; }
+@media(max-width:900px){ .grid { grid-template-columns: repeat(2,1fr); gap:15px; } }
+@media(max-width:600px){ .grid { grid-template-columns: 1fr; gap:12px; } }
+
+/* Product cards */
+.card { background:#1E1E1E; padding:15px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.5); width:100%; max-width:250px; text-align:center; opacity:0; transform: translateY(15px); transition: opacity 0.3s ease, transform 0.3s ease; }
+.card.visible { opacity:1; transform: translateY(0); }
+.card img { width:100%; border-radius:10px; margin-bottom:12px; }
+.card h3 { color:#00BFA5; font-size:1.2rem; margin-bottom:8px; }
+.card p { font-size:0.9rem; color:#ccc; margin-bottom:12px; }
+.card a { background:#00BFA5; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-size:0.95rem; display:inline-block; transition:background 0.3s; }
 .card a:hover { background:#26A69A; }
 
+/* Highlight */
+mark { background: #FFD600; color:#000; padding:0 2px; border-radius:2px; }
+
+/* No products message */
+.no-results { opacity:0; transition: opacity 0.3s ease; color:#FFD600; font-size:1.3rem; margin-top:15px; text-align:center; }
+.no-results.visible { opacity:1; }
+
 /* Footer */
-footer { margin-top:40px; padding:15px; background:#1A237E; color:#fff; }
+footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-size:0.9rem; }
+
+/* Responsive adjustments */
+@media(max-width:400px){
+  header { font-size:1.6rem; padding:15px; }
+  .search-box input { font-size:0.95rem; padding:8px 10px; }
+  .category-tags button { font-size:0.85rem; padding:6px 10px; margin:3px; }
+  .card a { font-size:0.9rem; padding:6px 15px; }
+}
 </style>
 </head>
 <body>
@@ -101,8 +79,13 @@ footer { margin-top:40px; padding:15px; background:#1A237E; color:#fff; }
     <input type="text" id="searchInput" placeholder="Search for software...">
   </div>
 
+  <div class="category-tags" id="categoryTags"></div>
+
+  <div class="match-count" id="matchCount"></div>
+
   <div class="grid-container">
     <div class="grid" id="productGrid"></div>
+    <div class="no-results" id="noResults">No products found</div>
   </div>
 </main>
 
@@ -110,57 +93,121 @@ footer { margin-top:40px; padding:15px; background:#1A237E; color:#fff; }
 
 <script>
 const grid = document.getElementById('productGrid');
+const noResults = document.getElementById('noResults');
+const matchCount = document.getElementById('matchCount');
+const searchInput = document.getElementById('searchInput');
+const categoryTagsDiv = document.getElementById('categoryTags');
 let products = [];
+let categories = [];
+let selectedCategories = [];
 
-// Fetch products from products.json
-async function loadProducts() {
+// Fetch products and categories
+async function loadData() {
   try {
-    const response = await fetch('products.json');
-    products = await response.json();
-    renderProducts(products);
+    const resProducts = await fetch('products.json');
+    products = await resProducts.json();
+
+    const resCategories = await fetch('category.json');
+    categories = await resCategories.json();
+
+    renderCategoryTags();
+    renderProducts(products, '', []);
   } catch (err) {
-    console.error('Failed to load products.json:', err);
+    console.error('Failed to load data', err);
+    noResults.textContent = "Failed to load products";
+    noResults.classList.add('visible');
   }
 }
 
-// Render products with fade-in/out
-function renderProducts(filteredProducts) {
-  const existingCards = Array.from(grid.children);
+// Render category tags with Clear All
+function renderCategoryTags() {
+  const clearBtn = document.createElement('button');
+  clearBtn.textContent = "Clear All";
+  clearBtn.classList.add('clear-all');
+  clearBtn.addEventListener('click', () => {
+    selectedCategories = [];
+    categoryTagsDiv.querySelectorAll('button.selected').forEach(b => b.classList.remove('selected'));
+    renderProducts(products, searchInput.value.toLowerCase(), selectedCategories);
+  });
+  categoryTagsDiv.appendChild(clearBtn);
 
-  // Fade out removed cards
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.textContent = cat.name;
+    btn.dataset.id = cat.id;
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('selected');
+      selectedCategories = Array.from(categoryTagsDiv.querySelectorAll('button.selected'))
+                               .filter(b => !b.classList.contains('clear-all'))
+                               .map(b => b.dataset.id);
+      renderProducts(products, searchInput.value.toLowerCase(), selectedCategories);
+    });
+    categoryTagsDiv.appendChild(btn);
+  });
+}
+
+// Highlight search
+function highlight(text, query) {
+  if(!query) return text;
+  const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+  return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Render products
+function renderProducts(allProducts, query, selectedCats) {
+  let filtered = allProducts;
+
+  if(selectedCats.length > 0) {
+    const allowed = new Set();
+    selectedCats.forEach(catId => {
+      const cat = categories.find(c => c.id === catId);
+      if(cat) cat.products.forEach(p => allowed.add(p));
+    });
+    filtered = filtered.filter(p => allowed.has(p.name));
+  }
+
+  if(query) {
+    filtered = filtered.filter(p => 
+      p.name.toLowerCase().includes(query) || 
+      p.description.toLowerCase().includes(query)
+    );
+  }
+
+  const existingCards = Array.from(grid.children);
   existingCards.forEach(card => {
-    const name = card.querySelector('h3').textContent;
-    if(!filteredProducts.some(p => p.name === name)) {
+    const name = card.querySelector('h3').textContent.replace(/<[^>]+>/g,'');
+    if(!filtered.some(p => p.name === name)) {
       card.classList.remove('visible');
       setTimeout(() => card.remove(), 300);
     }
   });
 
-  // Add new cards
-  filteredProducts.forEach(product => {
-    if(!existingCards.some(card => card.querySelector('h3').textContent === product.name)) {
+  filtered.forEach(product => {
+    if(!existingCards.some(card => card.querySelector('h3').textContent.replace(/<[^>]+>/g,'') === product.name)) {
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
         <img src="${product.img}" alt="${product.name}">
-        <h3>${product.name}</h3>
+        <h3>${highlight(product.name, query)}</h3>
+        <p>${highlight(product.description, query)}</p>
         <a href="${product.link}">Get Here</a>
       `;
       grid.appendChild(card);
       setTimeout(() => card.classList.add('visible'), 10);
     }
   });
+
+  matchCount.textContent = filtered.length > 0 ? `${filtered.length} product${filtered.length>1?'s':''} found` : '';
+  if(filtered.length === 0) noResults.classList.add('visible'); else noResults.classList.remove('visible');
 }
 
-// Live search
-document.getElementById('searchInput').addEventListener('input', function() {
-  const query = this.value.toLowerCase();
-  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-  renderProducts(filtered);
+// Event listener for search
+searchInput.addEventListener('input', () => {
+  renderProducts(products, searchInput.value.toLowerCase(), selectedCategories);
 });
 
 // Initialize
-loadProducts();
+loadData();
 </script>
 
 </body>
