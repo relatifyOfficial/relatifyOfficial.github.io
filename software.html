@@ -22,7 +22,6 @@ h2 { color:#FFD600; font-size:1.8rem; margin-bottom:15px; }
   .category-tags button.clear-all:hover { transform: scale(1.05); box-shadow: 0 0 10px #FFD600; }
 }
 @media (hover: none) and (pointer: coarse) { .category-tags button:active { transform: scale(0.95); } }
-.match-count { margin: 8px 0; font-size: 1.1rem; color: #FFD600; }
 .grid-container { width:100%; max-width:1000px; margin-top:15px; position:relative; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap:20px; justify-items:center; }
 @media(max-width:900px){ .grid { grid-template-columns: repeat(2,1fr); gap:15px; } }
@@ -37,6 +36,7 @@ h2 { color:#FFD600; font-size:1.8rem; margin-bottom:15px; }
 mark { background: #FFD600; color:#000; padding:0 2px; border-radius:2px; }
 .no-results { opacity:0; transition: opacity 0.3s ease; color:#FFD600; font-size:1.3rem; margin-top:15px; text-align:center; }
 .no-results.visible { opacity:1; }
+.match-count { font-size:1.1rem; color:#FFD600; margin:5px 0; }
 footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-size:0.9rem; }
 @media(max-width:400px){
   header { font-size:1.6rem; padding:15px; }
@@ -59,11 +59,16 @@ footer { margin-top:30px; padding:12px; background:#1A237E; color:#fff; font-siz
 
   <div class="category-tags" id="categoryTags"></div>
 
-  <div class="match-count" id="matchCount"></div>
-
   <div class="grid-container">
-    <div class="grid" id="productGrid"></div>
-    <div class="no-results" id="noResults">No products found</div>
+    <h3>Search Results</h3>
+    <div class="match-count" id="searchMatchCount"></div>
+    <div class="grid" id="searchGrid"></div>
+    <div class="no-results" id="searchNoResults">No search results found</div>
+
+    <h3>Category Results</h3>
+    <div class="match-count" id="categoryMatchCount"></div>
+    <div class="grid" id="categoryGrid"></div>
+    <div class="no-results" id="categoryNoResults">No products in this category</div>
   </div>
 </main>
 
@@ -75,15 +80,20 @@ if(sessionStorage.getItem('formSubmitted') !== 'true'){
     window.location.href = "index.html";
 }
 
-const grid = document.getElementById('productGrid');
-const noResults = document.getElementById('noResults');
-const matchCount = document.getElementById('matchCount');
+const searchGrid = document.getElementById('searchGrid');
+const searchNoResults = document.getElementById('searchNoResults');
+const searchMatchCount = document.getElementById('searchMatchCount');
+
+const categoryGrid = document.getElementById('categoryGrid');
+const categoryNoResults = document.getElementById('categoryNoResults');
+const categoryMatchCount = document.getElementById('categoryMatchCount');
+
 const searchInput = document.getElementById('searchInput');
 const categoryTagsDiv = document.getElementById('categoryTags');
+
 let products = [];
 let categories = [];
-let searchMode = false;
-let categoryMode = false;
+let selectedCategories = [];
 
 // Fetch products and categories
 async function loadData() {
@@ -95,11 +105,12 @@ async function loadData() {
     categories = await resCategories.json();
 
     renderCategoryTags();
-    renderGrid(products);
+    renderGrid(searchGrid, searchNoResults, searchMatchCount, []);
+    renderGrid(categoryGrid, categoryNoResults, categoryMatchCount, []);
   } catch (err) {
     console.error('Failed to load data', err);
-    noResults.textContent = "Failed to load products";
-    noResults.classList.add('visible');
+    searchNoResults.textContent = "Failed to load products";
+    searchNoResults.classList.add('visible');
   }
 }
 
@@ -109,10 +120,9 @@ function renderCategoryTags() {
   clearBtn.textContent = "Clear All";
   clearBtn.classList.add('clear-all');
   clearBtn.addEventListener('click', () => {
-    categoryMode = false;
-    searchMode = false;
+    selectedCategories = [];
     categoryTagsDiv.querySelectorAll('button.selected').forEach(b => b.classList.remove('selected'));
-    renderGrid(products);
+    renderGrid(categoryGrid, categoryNoResults, categoryMatchCount, []);
   });
   categoryTagsDiv.appendChild(clearBtn);
 
@@ -122,90 +132,67 @@ function renderCategoryTags() {
     btn.dataset.id = cat.id;
     btn.addEventListener('click', () => {
       btn.classList.toggle('selected');
-      const selectedCats = Array.from(categoryTagsDiv.querySelectorAll('button.selected'))
-                                .filter(b => !b.classList.contains('clear-all'))
-                                .map(b => b.dataset.id);
-      if(selectedCats.length > 0){
-        categoryMode = true;
-        searchMode = false;
-        renderProductsByCategory(selectedCats);
+      selectedCategories = Array.from(categoryTagsDiv.querySelectorAll('button.selected'))
+                               .filter(b => !b.classList.contains('clear-all'))
+                               .map(b => b.dataset.id);
+      if(selectedCategories.length > 0){
+        const allowed = new Set();
+        selectedCategories.forEach(catId => {
+          const cat = categories.find(c => c.id === catId);
+          if(cat) cat.products.forEach(p => allowed.add(p.name));
+        });
+        renderGrid(categoryGrid, categoryNoResults, categoryMatchCount, products.filter(p => allowed.has(p.name)));
       } else {
-        categoryMode = false;
-        renderGrid(products);
+        renderGrid(categoryGrid, categoryNoResults, categoryMatchCount, []);
       }
     });
     categoryTagsDiv.appendChild(btn);
   });
 }
 
-// Search input listener
-searchInput.addEventListener('input', () => {
-  const query = searchInput.value.toLowerCase();
-  if(query){
-    searchMode = true;
-    categoryMode = false;
-    renderProductsBySearch(query);
-  } else {
-    searchMode = false;
-    renderGrid(products);
-  }
-});
-
-// Render functions
-function renderProductsBySearch(query){
-  const filtered = products.filter(p => 
-    p.name.toLowerCase().includes(query) || 
-    p.description.toLowerCase().includes(query)
-  );
-  renderGrid(filtered, query);
-}
-
-function renderProductsByCategory(selectedCats){
-  const allowed = new Set();
-  selectedCats.forEach(catId => {
-    const cat = categories.find(c => c.id === catId);
-    if(cat) cat.products.forEach(p => allowed.add(p.name));
-  });
-  const filtered = products.filter(p => allowed.has(p.name));
-  renderGrid(filtered);
-}
-
-// Grid renderer
-function renderGrid(filtered, query=''){
-  const existingCards = Array.from(grid.children);
-  existingCards.forEach(card => {
-    const name = card.querySelector('h3').textContent.replace(/<[^>]+>/g,'');
-    if(!filtered.some(p => p.name === name)){
-      card.classList.remove('visible');
-      setTimeout(() => card.remove(), 300);
-    }
-  });
-
-  filtered.forEach(product => {
-    if(!existingCards.some(card => card.querySelector('h3').textContent.replace(/<[^>]+>/g,'') === product.name)){
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <img src="${product.img}" alt="${product.name}">
-        <h3>${highlight(product.name, query)}</h3>
-        <p>${highlight(product.description, query)}</p>
-        <a href="${product.link}" target="_blank" rel="noopener noreferrer">Get Here</a>
-      `;
-      grid.appendChild(card);
-      setTimeout(() => card.classList.add('visible'), 10);
-    }
-  });
-
-  matchCount.textContent = filtered.length > 0 ? `${filtered.length} product${filtered.length>1?'s':''} found` : '';
-  if(filtered.length === 0) noResults.classList.add('visible'); else noResults.classList.remove('visible');
-}
-
-// Highlight for search
-function highlight(text, query){
+// Highlight function
+function highlight(text, query) {
   if(!query) return text;
   const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
   return text.replace(regex, '<mark>$1</mark>');
 }
+
+// Generic grid renderer with match count
+function renderGrid(gridElement, noResultsElement, matchCountElement, items, highlightQuery=''){
+  gridElement.innerHTML = '';
+  if(items.length === 0){
+    noResultsElement.classList.add('visible');
+    matchCountElement.textContent = '';
+    return;
+  } else {
+    noResultsElement.classList.remove('visible');
+    matchCountElement.textContent = `${items.length} product${items.length>1?'s':''} found`;
+  }
+  
+  items.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'card visible';
+    card.innerHTML = `
+      <img src="${product.img}" alt="${product.name}">
+      <h3>${highlight(product.name, highlightQuery)}</h3>
+      <p>${highlight(product.description, highlightQuery)}</p>
+      <a href="${product.link}" target="_blank" rel="noopener noreferrer">Get Here</a>
+    `;
+    gridElement.appendChild(card);
+  });
+}
+
+// Search listener
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+  if(query){
+    renderGrid(searchGrid, searchNoResults, searchMatchCount, products.filter(p =>
+      p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
+    ), query);
+  } else {
+    renderGrid(searchGrid, searchNoResults, searchMatchCount, []);
+  }
+});
 
 // Initialize
 loadData();
