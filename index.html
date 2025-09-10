@@ -69,9 +69,23 @@
         z-index: 1;
     }
 
-    header img {
-        max-height: 60px;
+    header img.logo {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #FFD600;
         margin-bottom: 10px;
+        background-color: #fff;
+        animation: jumpIn 1s ease; /* bounce on load */
+    }
+
+    @keyframes jumpIn {
+        0% { transform: translateY(0); }
+        30% { transform: translateY(-40px); }
+        50% { transform: translateY(0); }
+        70% { transform: translateY(-20px); }
+        100% { transform: translateY(0); }
     }
 
     main {
@@ -147,7 +161,7 @@
 <body>
 
 <header>
-    <img src="logo.jpg" alt="Relatify Logo">
+    <img src="logo.png" alt="Relatify Logo" class="logo">
     Welcome to Relatify
 </header>
 
@@ -187,7 +201,7 @@ function submitForm(e){
     document.getElementById('leadForm').style.display = 'none';
     document.getElementById('leadText').innerText = "Thank you! Redirecting...";
 
-    // Optional: If you still want to log to Google Forms silently
+    // Optional: Log to Google Forms silently
     const prefillURL = `https://docs.google.com/forms/d/e/1FAIpQLScjIW3a2k6IvzYIvuy1hkymhCsuhxmnIwwgmoHF8rGV-KcUog/formResponse?entry.1364679976=${encodeURIComponent(name)}&entry.841370959=${encodeURIComponent(email)}`;
     fetch(prefillURL, {mode:'no-cors'});
 
