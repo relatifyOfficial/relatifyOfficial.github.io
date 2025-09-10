@@ -1,22 +1,7 @@
 [
   {
-    "id": "ai",
-    "name": "AI",
-    "products": ["Sample AI Tool", "AI Assistant"]
-  },
-  {
-    "id": "productivity",
-    "name": "Productivity",
-    "products": ["Productivity Booster", "Focus Timer", "Task Tracker", "Time Logger"]
-  },
-  {
-    "id": "utilities",
-    "name": "Utilities",
-    "products": ["Utility Master", "File Organizer", "PDF Converter", "Backup Manager"]
-  },
-  {
-    "id": "developer",
-    "name": "Developer Tools",
-    "products": ["Code Compiler", "Email Scheduler"]
+    "id": "video",
+    "name": "Video Tools",
+    "products": ["VidSpace AI"]
   }
 ]
